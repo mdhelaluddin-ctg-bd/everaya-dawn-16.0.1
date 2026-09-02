@@ -491,6 +491,12 @@
                     block: block,
                     product_form_id: product_form_id
                   %}
+                {%- when 'custom_message' -%}
+                  {%- render 'product-custom-message',
+                    block: block,
+                    product_form_id: product_form_id,
+                    section_id: section.id
+                  -%}
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',
                     block: block,
@@ -919,6 +925,87 @@
             }
           ],
           "default": "circle"
+        }
+      ]
+    },
+    {
+      "type": "custom_message",
+      "name": "Custom message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Write your sign off message (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "property_name",
+          "label": "Line item property name",
+          "default": "Sign off message",
+          "info": "Shown next to the message in the cart, at checkout and on the order."
+        },
+        {
+          "type": "select",
+          "id": "field_type",
+          "label": "Field type",
+          "options": [
+            {
+              "value": "text",
+              "label": "Single line"
+            },
+            {
+              "value": "textarea",
+              "label": "Multiple lines"
+            }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "Write your sign off message \"i love you always and forever\""
+        },
+        {
+          "type": "range",
+          "id": "max_characters",
+          "label": "Maximum characters",
+          "min": 10,
+          "max": 300,
+          "step": 10,
+          "default": 60
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Require a message",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "error_text",
+          "label": "Required field message",
+          "default": "Please add your message before adding to cart.",
+          "info": "Only shown when a message is required."
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_label",
+          "label": "Highlight label",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "help_text",
+          "label": "Help text",
+          "default": "This line prints at the bottom of the card"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Help text badge",
+          "default": "Free"
         }
       ]
     },

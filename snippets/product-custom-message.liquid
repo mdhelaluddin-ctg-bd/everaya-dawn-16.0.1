@@ -1,0 +1,83 @@
+{% comment %}
+  Renders an optional customer-supplied message that is attached to the line item
+  as a cart line item property.
+
+  Accepts:
+  - block: {Object} the `custom_message` block from the product section.
+  - product_form_id: {String} id of the product form the input belongs to.
+  - section_id: {String} id of the section this snippet belongs to.
+
+  Usage:
+  {% render 'product-custom-message', block: block, product_form_id: product_form_id, section_id: section.id %}
+{% endcomment %}
+
+{{ 'component-custom-message.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-message.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign property_name = block.settings.property_name | default: 'Custom message'
+  assign input_id = 'CustomMessage-' | append: section_id | append: '-' | append: block.id
+  assign max_characters = block.settings.max_characters
+
+  assign describedby = ''
+  if block.settings.help_text != blank or block.settings.badge_text != blank
+    assign describedby = input_id | append: '-help'
+  endif
+-%}
+
+<custom-message-field
+  class="product-form__input product-custom-message"
+  data-max-length="{{ max_characters }}"
+  data-required="{{ block.settings.required }}"
+  {{ block.shopify_attributes }}
+>
+  <label
+    class="form__label product-custom-message__label{% if block.settings.highlight_label %} product-custom-message__label--highlighted{% endif %}"
+    for="{{ input_id }}"
+  >
+    {{- block.settings.label | escape -}}
+  </label>
+
+  <div class="field product-custom-message__field">
+    {%- if block.settings.field_type == 'textarea' -%}
+      <textarea
+        id="{{ input_id }}"
+        class="field__input"
+        name="properties[{{ property_name | escape }}]"
+        form="{{ product_form_id }}"
+        rows="3"
+        maxlength="{{ max_characters }}"
+        placeholder="{{ block.settings.placeholder | escape }}"
+        {% if describedby != blank %}aria-describedby="{{ describedby }}"{% endif %}
+      ></textarea>
+    {%- else -%}
+      <input
+        id="{{ input_id }}"
+        class="field__input"
+        type="text"
+        name="properties[{{ property_name | escape }}]"
+        form="{{ product_form_id }}"
+        value=""
+        maxlength="{{ max_characters }}"
+        placeholder="{{ block.settings.placeholder | escape }}"
+        {% if describedby != blank %}aria-describedby="{{ describedby }}"{% endif %}
+      >
+    {%- endif -%}
+    <span class="product-custom-message__counter" aria-hidden="true">0/{{ max_characters }}</span>
+  </div>
+
+  {%- if block.settings.help_text != blank or block.settings.badge_text != blank -%}
+    <div class="product-custom-message__help" id="{{ describedby }}">
+      {%- if block.settings.help_text != blank -%}
+        <span>{{ block.settings.help_text | escape }}</span>
+      {%- endif -%}
+      {%- if block.settings.badge_text != blank -%}
+        <span class="product-custom-message__help-badge">{{ block.settings.badge_text | escape }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="product-custom-message__error" role="alert" hidden>
+    {{- block.settings.error_text | default: 'Please fill in this field.' | escape -}}
+  </div>
+</custom-message-field>

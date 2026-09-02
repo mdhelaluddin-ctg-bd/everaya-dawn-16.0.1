@@ -1,0 +1,114 @@
+.product-custom-message {
+  display: block;
+}
+
+.product-custom-message__label {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  letter-spacing: 0.04rem;
+  opacity: 1;
+}
+
+.product-custom-message__label--highlighted {
+  padding: 0.4rem 0.8rem;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  font-weight: 600;
+  border-radius: var(--inputs-radius, 0);
+}
+
+.product-custom-message__field.field {
+  --custom-message-counter-space: 6.5rem;
+}
+
+.product-custom-message__field .field__input,
+.product-custom-message__field .field__input:focus,
+.product-custom-message__field .field__input:not(:placeholder-shown) {
+  padding: 1.4rem var(--custom-message-counter-space) 1.4rem 1.5rem;
+}
+
+.product-custom-message__field .field__input::placeholder {
+  opacity: 1;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.product-custom-message__field textarea.field__input,
+.product-custom-message__field textarea.field__input:focus,
+.product-custom-message__field textarea.field__input:not(:placeholder-shown) {
+  height: auto;
+  min-height: 9rem;
+  resize: vertical;
+  line-height: 1.5;
+  padding: 1.4rem 1.5rem 3rem 1.5rem;
+}
+
+.product-custom-message__counter {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  z-index: 2;
+  font-size: 1.2rem;
+  line-height: 1;
+  letter-spacing: 0.04rem;
+  pointer-events: none;
+  color: rgba(var(--color-foreground), 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+.product-custom-message__field textarea.field__input ~ .product-custom-message__counter {
+  top: auto;
+  bottom: 1rem;
+  transform: none;
+}
+
+.product-custom-message__counter.is-at-limit {
+  color: rgb(var(--color-foreground));
+  font-weight: 600;
+}
+
+.product-custom-message__help {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 0.8rem;
+  margin-top: 0.6rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.product-custom-message__help-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.9);
+}
+
+.product-custom-message__help-badge::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.product-custom-message__error {
+  display: none;
+  margin-top: 0.6rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: var(--custom-message-error-color, #b0332a);
+}
+
+.product-custom-message--error .product-custom-message__error {
+  display: block;
+}
+
+.product-custom-message--error .field:after,
+.product-custom-message--error .field:hover.field:after {
+  box-shadow: 0 0 0 var(--inputs-border-width) var(--custom-message-error-color, #b0332a);
+}
