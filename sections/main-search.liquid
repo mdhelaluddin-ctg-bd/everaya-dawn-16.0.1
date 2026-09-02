@@ -271,6 +271,7 @@
                   >
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
+                        {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
                         {% render 'card-product',
                           card_product: item,
                           media_aspect_ratio: section.settings.image_ratio,
@@ -279,7 +280,8 @@
                           show_vendor: section.settings.show_vendor,
                           show_rating: section.settings.show_rating,
                           lazy_load: lazy_load,
-                          skip_styles: skip_card_product_styles
+                          skip_styles: skip_card_product_styles,
+                          product_view_context: 'search'
                         %}
                         {%- assign skip_card_product_styles = true -%}
                       {%- when 'article' -%}
@@ -430,7 +432,7 @@
     {
       "type": "checkbox",
       "id": "show_secondary_image",
-      "default": true,
+      "default": false,
       "label": "t:sections.main-search.settings.show_secondary_image.label"
     },
     {

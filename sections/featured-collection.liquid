@@ -127,7 +127,8 @@
                   show_rating: section.settings.show_rating,
                   skip_styles: skip_card_product_styles,
                   section_id: section.id,
-                  quick_add: section.settings.quick_add
+                  quick_add: section.settings.quick_add,
+                  product_view_context: 'collection'
                 %}
               </li>
               {%- assign skip_card_product_styles = true -%}
@@ -432,7 +433,7 @@
     {
       "type": "checkbox",
       "id": "show_secondary_image",
-      "default": true,
+      "default": false,
       "label": "t:sections.featured-collection.settings.show_secondary_image.label"
     },
     {

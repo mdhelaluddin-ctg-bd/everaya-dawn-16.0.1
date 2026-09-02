@@ -285,33 +285,6 @@
   justify-self: flex-end;
 }
 
-.card__discount-badge {
-  position: absolute;
-  z-index: 2;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.55rem 1rem;
-  border-radius: 999rem;
-  background: #f82f3d;
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0;
-  white-space: nowrap;
-  box-shadow: 0 0.2rem 0.6rem rgba(110, 10, 20, 0.16);
-  pointer-events: none;
-}
-
-@media screen and (max-width: 749px) {
-  .card__discount-badge {
-    top: 0.7rem;
-    right: 0.7rem;
-    padding: 0.5rem 0.8rem;
-    font-size: 1.1rem;
-  }
-}
-
 .card:not(.card--horizontal) > .card__content > .card__badge {
   margin: 1.3rem;
 }
@@ -511,23 +484,6 @@
 
 .card-information > .rating {
   margin-top: 0.4rem;
-}
-
-.card-information > .card-information__shipping-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  width: max-content;
-  max-width: 100%;
-  padding: 0.3rem 1rem;
-  border-radius: 999rem;
-  background: #2eaa43;
-  color: #fff;
-  font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0.035rem;
-  text-transform: uppercase;
 }
 
 /* Specificity needed due to the changes below */

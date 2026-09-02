@@ -13,11 +13,6 @@
     margin: -0.5rem;
     padding-top: 0;
   }
-
-  .footer .list-payment {
-    justify-content: center;
-    margin: -0.5rem 0;
-  }
 }
 
 .list-payment__item {
