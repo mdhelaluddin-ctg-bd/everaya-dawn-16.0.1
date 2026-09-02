@@ -1,0 +1,54 @@
+{%- comment -%}
+  Ring size-guide modal dialog. Rendered once per `size_guide` block,
+  outside the product info loop. Opened by the matching <modal-opener>.
+  Close button id MUST start with "ModalClose-" (Dawn ModalDialog binds to it).
+  Accepts: block
+{%- endcomment -%}
+<modal-dialog id="SizeGuideModal-{{ block.id }}" class="product-popup-modal size-guide-modal" {{ block.shopify_attributes }}>
+  <div
+    role="dialog"
+    aria-label="{{ block.settings.heading | default: 'Ring size guide' | escape }}"
+    aria-modal="true"
+    class="product-popup-modal__content"
+    tabindex="-1"
+  >
+    <button
+      id="ModalClose-{{ block.id }}"
+      type="button"
+      class="product-popup-modal__toggle"
+      aria-label="{{ 'accessibility.close' | t }}"
+    >
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </button>
+    <div class="product-popup-modal__content-info size-guide">
+      <h2 class="h3 size-guide__heading">{{ block.settings.heading | default: 'Ring size guide' | escape }}</h2>
+      {%- if block.settings.intro != blank -%}
+        <div class="size-guide__intro rte">{{ block.settings.intro }}</div>
+      {%- endif -%}
+
+      {%- if block.settings.show_ring_chart -%}
+        <table class="size-guide__table">
+          <thead>
+            <tr><th>US / CA</th><th>UK / AU</th><th>EU</th><th>Inside Ø (mm)</th><th>Circumference (mm)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>4</td><td>H½</td><td>47</td><td>14.9</td><td>46.8</td></tr>
+            <tr><td>5</td><td>J½</td><td>49</td><td>15.7</td><td>49.3</td></tr>
+            <tr><td>6</td><td>L½</td><td>52</td><td>16.5</td><td>51.9</td></tr>
+            <tr><td>7</td><td>N½</td><td>54</td><td>17.3</td><td>54.4</td></tr>
+            <tr><td>8</td><td>P½</td><td>57</td><td>18.1</td><td>57.0</td></tr>
+            <tr><td>9</td><td>R½</td><td>59</td><td>19.0</td><td>59.5</td></tr>
+            <tr><td>10</td><td>T½</td><td>62</td><td>19.8</td><td>62.1</td></tr>
+            <tr><td>11</td><td>V½</td><td>64</td><td>20.6</td><td>64.6</td></tr>
+            <tr><td>12</td><td>X½</td><td>67</td><td>21.4</td><td>67.2</td></tr>
+          </tbody>
+        </table>
+        <p class="size-guide__tip">Tip: measure a ring you already own across the inside edge in millimetres, then match it to the “Inside Ø” column.</p>
+      {%- endif -%}
+
+      {%- if block.settings.custom_content != blank -%}
+        <div class="size-guide__custom rte">{{ block.settings.custom_content }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</modal-dialog>
