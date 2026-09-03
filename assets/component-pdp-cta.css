@@ -106,42 +106,109 @@
   text-transform: none;
 }
 
-/* Quantity stepper: filled gray buttons, white input, rounded outer corners,
-   a soft drop shadow. Reuses --pdp-variant-card-radius so the radius stays
-   consistent with the variant cards above it, rather than a separate slider.
+/* Quantity stepper: horizontal label + wide gray/white stepper.
 
-   Scoped with the same [id^="MainProduct-"] attribute-prefix pattern used for
-   the label-consistency rules above: .quantity is also rendered by the cart
-   drawer, cart page, product cards, quick order list and featured-product -
-   an unscoped rule would restyle the cart's quantity stepper too. */
+   Scoped with the [id^="MainProduct-"] pattern used above - .quantity is also
+   rendered by the cart drawer, cart page, product cards, quick order list and
+   featured-product, so an unscoped rule would restyle the cart's stepper too.
+
+   SPECIFICITY NOTE: Dawn ships
+     .quantity__button:not(:focus-visible):not(.focused) { background-color: inherit; box-shadow: inherit }
+   which is (0,3,0), because :not() takes its argument's specificity. A plain
+   [id^="MainProduct-"] .quantity__button is only (0,2,0) and loses - the gray
+   fill silently never applies, and the buttons inherit the wrapper's shadow.
+   The state selectors below are written to reach (0,4,0) deliberately. */
+[id^="MainProduct-"] .product-form__input.product-form__quantity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.6rem;
+  /* .product-form__input carries min-width:fit-content, which would let the
+     label + wide stepper push past the column. */
+  min-width: 0;
+}
+
+/* Doubled class = (0,3,0), beating .product--no-media .product-form__quantity
+   (0,2,0) rather than relying on stylesheet order. */
+[id^="MainProduct-"] .product-form__input.product-form__quantity .quantity__label {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+[id^="MainProduct-"] .product-form__quantity .price-per-item__container {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* The rules/volume-pricing line is a sibling after the stepper - keep it on its
+   own row instead of letting it sit inline beside the controls. */
+[id^="MainProduct-"] .product-form__quantity .quantity__rules {
+  flex: 0 0 100%;
+}
+
 [id^="MainProduct-"] .quantity {
-  border-radius: var(--pdp-variant-card-radius, 0.6rem);
+  width: 100%;
   min-height: 5.6rem;
+  border-radius: var(--pdp-quantity-radius, 0.8rem);
   box-shadow: 0 0.4rem 1rem rgba(var(--color-shadow), 0.18);
 }
 
-[id^="MainProduct-"] .quantity:before,
+[id^="MainProduct-"] .quantity:before {
+  border-radius: var(--pdp-quantity-radius, 0.8rem);
+}
+
+/* Dawn's border ring reads as clutter once the buttons are filled and the box
+   has a drop shadow - the fill contrast already defines the shape. */
 [id^="MainProduct-"] .quantity:after {
-  border-radius: var(--pdp-variant-card-radius, 0.6rem);
+  border-radius: var(--pdp-quantity-radius, 0.8rem);
+  box-shadow: none;
+}
+
+[id^="MainProduct-"] .quantity__button:not(:focus-visible):not(.focused),
+[id^="MainProduct-"] .quantity__button:focus-visible,
+[id^="MainProduct-"] .quantity__button:focus {
+  background-color: var(--pdp-quantity-button-color, #999999);
+  color: var(--pdp-quantity-icon-color, #ffffff);
+  box-shadow: none;
 }
 
 [id^="MainProduct-"] .quantity__button {
-  background-color: var(--pdp-quantity-button-color, #999999);
-  color: var(--pdp-quantity-icon-color, #333333);
   width: calc(6rem / var(--font-body-scale));
+  flex-shrink: 0;
 }
 
+[id^="MainProduct-"] .quantity__button .svg-wrapper {
+  width: 1.3rem;
+}
+
+/* Dawn's focus style swaps the button background to the page background; with
+   white icons that would make them invisible. Hold the gray (above) and use an
+   inset ring for the focus cue instead. */
+[id^="MainProduct-"] .quantity__button:focus-visible {
+  outline: 0.2rem solid rgb(var(--color-foreground));
+  outline-offset: -0.3rem;
+}
+
+/* Dawn insets these by --inputs-border-width (1px); with a radius on both the
+   wrapper and the button that leaves a 1px sliver of the white :before showing
+   at the outer corners. Zero it so the fill sits flush. */
 [id^="MainProduct-"] .quantity__button:first-child {
-  border-top-left-radius: var(--pdp-variant-card-radius, 0.6rem);
-  border-bottom-left-radius: var(--pdp-variant-card-radius, 0.6rem);
+  margin-left: 0;
+  border-top-left-radius: var(--pdp-quantity-radius, 0.8rem);
+  border-bottom-left-radius: var(--pdp-quantity-radius, 0.8rem);
 }
 
 [id^="MainProduct-"] .quantity__button:last-child {
-  border-top-right-radius: var(--pdp-variant-card-radius, 0.6rem);
-  border-bottom-right-radius: var(--pdp-variant-card-radius, 0.6rem);
+  margin-right: 0;
+  border-top-right-radius: var(--pdp-quantity-radius, 0.8rem);
+  border-bottom-right-radius: var(--pdp-quantity-radius, 0.8rem);
 }
 
+[id^="MainProduct-"] .quantity__input:not(:focus-visible):not(.focused),
 [id^="MainProduct-"] .quantity__input {
   background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-size: 2rem;
+  font-weight: 600;
   opacity: 1;
 }
