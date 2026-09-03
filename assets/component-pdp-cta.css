@@ -55,11 +55,26 @@
   box-shadow: var(--pdp-3d-shadow);
 }
 
+/* Dawn paints a ring on ::after and, because show_dynamic_checkout puts
+   .button--secondary on this button, .button--secondary:after flips
+   --border-opacity from 0 to 1 - making that ring solid --color-button-text
+   (white). The base ::after rule above kills it, but Dawn's
+   .button:not([disabled]):hover::after is (0,3,1) and outranks it on hover,
+   which is where the white edge came from. :not([disabled]) here mirrors
+   Dawn's own shape to reach (0,4,1) and win on specificity, not load order. */
+.product__info-container .product-form__submit:not([disabled]):hover::after {
+  box-shadow: none;
+}
+
+/* Hover is a colour shift only - no lift, no shadow change. */
 @media (hover: hover) {
-  .product__info-container .product-form__submit.product-form__submit--shadow:hover {
-    transform: translateY(-0.1rem);
-    box-shadow: 0 0.4rem 0 rgba(var(--color-foreground), 0.14),
-      0 0.7rem 1.1rem rgba(var(--color-shadow), 0.16);
+  .product__info-container .product-form__submit:not([disabled]):hover {
+    /* Fallback first for browsers without color-mix, same pattern as
+       component-delivery-estimate.css. */
+    background-color: rgba(var(--color-button), 0.85);
+    background-color: color-mix(in srgb, rgb(var(--color-button)) 88%, #000);
+    border-color: rgba(var(--color-button), 0.85);
+    border-color: color-mix(in srgb, rgb(var(--color-button)) 88%, #000);
   }
 }
 
@@ -75,7 +90,6 @@
     transition: none;
   }
 
-  .product__info-container .product-form__submit.product-form__submit--shadow:hover,
   .product__info-container .product-form__submit.product-form__submit--shadow:active {
     transform: none;
   }
