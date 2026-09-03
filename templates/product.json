@@ -63,7 +63,10 @@
         },
         "quantity_selector": {
           "type": "quantity_selector",
-          "settings": {}
+          "settings": {
+            "quantity_button_color": "#999999",
+            "quantity_icon_color": "#333333"
+          }
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -174,7 +177,7 @@
         "media_width": 60,
         "column_gap": 40,
         "constrain_to_viewport": true,
-        "media_fit": "cover",
+        "media_fit": "contain",
         "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "show",
         "media_position": "left",
