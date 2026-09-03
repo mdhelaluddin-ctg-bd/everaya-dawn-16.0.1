@@ -174,7 +174,7 @@
         "enable_sticky_atc": true,
         "color_scheme": "scheme-1",
         "media_size": "large",
-        "media_width": 60,
+        "media_width": 50,
         "column_gap": 40,
         "constrain_to_viewport": true,
         "media_fit": "contain",
