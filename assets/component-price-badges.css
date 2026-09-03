@@ -18,10 +18,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.2rem;
+  min-height: 3.4rem;
   border: 0.1rem solid rgba(var(--color-foreground), 0.22);
   border-radius: var(--badge-corner-radius, 0);
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.04rem;
@@ -49,4 +50,35 @@
 .product-price-badges__check svg {
   width: 1.2rem;
   height: 1.2rem;
+}
+
+/* Price row: the prices and the promotional badges share one wrapping row, so
+   the Free shipping tag sits directly after the price rather than below it.
+
+   Everything here is scoped to .product__price-block, which exists only in
+   main-product.liquid. `price` is also rendered by card-product.liquid,
+   predictive-search.liquid and featured-product.liquid - unscoped colour rules
+   would turn collection cards, search results and featured products red and
+   green too. Do NOT scope to .product__info-container; featured-product uses
+   that as well. */
+.product__price-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+}
+
+.product__price-block .product-price-badges {
+  margin: 0;
+}
+
+/* Only when actually discounted, so a product with no compare-at price keeps
+   the default text colour instead of rendering green. */
+.product__price-block .price--on-sale .price-item--regular {
+  color: var(--pdp-compare-price-color, #d02d2d);
+}
+
+.product__price-block .price--on-sale .price-item--sale {
+  color: var(--pdp-sale-price-color, #2eaa43);
+  font-weight: 700;
 }

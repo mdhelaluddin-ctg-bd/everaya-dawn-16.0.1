@@ -167,7 +167,17 @@
                     </a>
                   </div>
                 {%- when 'price' -%}
-                  <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                  {%- capture price_style -%}
+                    {%- if block.settings.sale_price_color != blank %}--pdp-sale-price-color: {{ block.settings.sale_price_color }};{% endif -%}
+                    {%- if block.settings.compare_price_color != blank %}--pdp-compare-price-color: {{ block.settings.compare_price_color }};{% endif -%}
+                  {%- endcapture -%}
+                  <div
+                    id="price-{{ section.id }}"
+                    class="product__price-block"
+                    role="status"
+                    {% if price_style != blank %}style="{{ price_style }}"{% endif %}
+                    {{ block.shopify_attributes }}
+                  >
                     {%- render 'price',
                       product: product,
                       use_variant: true,
@@ -914,6 +924,22 @@
             "default": false,
             "label": "Show theme sale and sold out badges",
             "info": "Turn off when using the promotional badges below, so the two do not double up."
+          },
+          {
+            "type": "header",
+            "content": "Price colours"
+          },
+          {
+            "type": "color",
+            "id": "sale_price_color",
+            "label": "Sale price colour",
+            "default": "#2eaa43"
+          },
+          {
+            "type": "color",
+            "id": "compare_price_color",
+            "label": "Compare at price colour",
+            "default": "#d02d2d"
           },
           {
             "type": "header",
