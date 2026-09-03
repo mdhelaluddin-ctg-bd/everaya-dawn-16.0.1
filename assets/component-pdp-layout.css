@@ -41,3 +41,26 @@
     padding-right: var(--pdp-column-gap, 4rem);
   }
 }
+
+/* Product title size.
+
+   Dawn hardcodes h1 at heading_scale x 3rem / 4rem (30px / 40px) in base.css,
+   and the global heading scale is already at its 100 minimum - lowering it
+   further would shrink every h1 sitewide. These rules scope the size to the
+   product title and drive it from the Title block's settings.
+
+   Descendant selector on purpose: featured-product puts .product__title
+   directly on its <h2>, so a compound selector would capture it. The fallbacks
+   are Dawn's exact values, so anything without the variable (quick-add, an
+   un-migrated template) renders as it does today. */
+.product__title h1,
+.product__title .h1 {
+  font-size: var(--pdp-title-size-mobile, calc(var(--font-heading-scale) * 3rem));
+}
+
+@media screen and (min-width: 750px) {
+  .product__title h1,
+  .product__title .h1 {
+    font-size: var(--pdp-title-size, calc(var(--font-heading-scale) * 4rem));
+  }
+}
