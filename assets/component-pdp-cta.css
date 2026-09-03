@@ -47,19 +47,22 @@
 
 
 .product__info-container .product-form__submit.product-form__submit--shadow {
-  box-shadow: 0 0.6rem 1.6rem rgba(var(--color-shadow), 0.18);
+  box-shadow: var(--pdp-3d-shadow);
 }
 
 @media (hover: hover) {
   .product__info-container .product-form__submit.product-form__submit--shadow:hover {
     transform: translateY(-0.1rem);
-    box-shadow: 0 0.8rem 2rem rgba(var(--color-shadow), 0.22);
+    box-shadow: 0 0.4rem 0 rgba(var(--color-foreground), 0.14),
+      0 0.7rem 1.1rem rgba(var(--color-shadow), 0.16);
   }
 }
 
+/* The solid offset collapses and the button drops by the same amount, so it
+   reads as being pressed into the page rather than just losing its shadow. */
 .product__info-container .product-form__submit.product-form__submit--shadow:active {
-  transform: translateY(0);
-  box-shadow: 0 0.3rem 0.9rem rgba(var(--color-shadow), 0.18);
+  transform: translateY(0.2rem);
+  box-shadow: var(--pdp-3d-shadow-pressed);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -90,20 +93,24 @@
    exists only on this section's <product-info> root - featured-product's carries
    no id at all, so this selector reaches every instance of this section on the
    page without touching a different one. */
-[id^="MainProduct-"] .product-form__quantity .form__label,
-[id^="MainProduct-"] .product-custom-message__label {
-  font-size: 1.45rem;
-  font-weight: 600;
-  letter-spacing: 0.08rem;
-  text-transform: uppercase;
+/* Shared 3D bottom shadow: a solid offset for the "step", plus a soft gray
+   falloff for the gradient. Used by the variant cards, the message input, the
+   quantity box and the Add to cart button. */
+[id^="MainProduct-"] {
+  --pdp-3d-shadow: 0 0.3rem 0 rgba(var(--color-foreground), 0.14),
+    0 0.5rem 0.9rem rgba(var(--color-shadow), 0.14);
+  --pdp-3d-shadow-pressed: 0 0.1rem 0 rgba(var(--color-foreground), 0.14),
+    0 0.2rem 0.4rem rgba(var(--color-shadow), 0.14);
 }
 
-/* The message label is a full instruction sentence ("Write your sign off
-   message (Optional)"), not a short label like QUANTITY or SELECT NECKLACE.
-   Forcing it to caps would read as shouting - keep everything else consistent,
-   only exclude the transform here. */
-[id^="MainProduct-"] .product-custom-message__label {
-  text-transform: none;
+[id^="MainProduct-"] .product-form__quantity .form__label,
+[id^="MainProduct-"] .product-custom-message__label,
+.product-form__input--pill.product-form__input--card .form__label {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
 }
 
 /* Quantity stepper: horizontal label + wide gray/white stepper.
@@ -132,7 +139,6 @@
    (0,2,0) rather than relying on stylesheet order. */
 [id^="MainProduct-"] .product-form__input.product-form__quantity .quantity__label {
   margin-bottom: 0;
-  font-weight: 700;
 }
 
 [id^="MainProduct-"] .product-form__quantity .price-per-item__container {
@@ -148,19 +154,21 @@
 
 [id^="MainProduct-"] .quantity {
   width: 100%;
-  min-height: 5.6rem;
-  border-radius: var(--pdp-quantity-radius, 0.8rem);
-  box-shadow: 0 0.4rem 1rem rgba(var(--color-shadow), 0.18);
+  /* Matches Dawn's .field__input height so the stepper lines up with the
+     custom message input. */
+  min-height: 4.5rem;
+  border-radius: var(--pdp-quantity-radius, 0);
+  box-shadow: var(--pdp-3d-shadow);
 }
 
 [id^="MainProduct-"] .quantity:before {
-  border-radius: var(--pdp-quantity-radius, 0.8rem);
+  border-radius: var(--pdp-quantity-radius, 0);
 }
 
 /* Dawn's border ring reads as clutter once the buttons are filled and the box
    has a drop shadow - the fill contrast already defines the shape. */
 [id^="MainProduct-"] .quantity:after {
-  border-radius: var(--pdp-quantity-radius, 0.8rem);
+  border-radius: var(--pdp-quantity-radius, 0);
   box-shadow: none;
 }
 
@@ -194,14 +202,14 @@
    at the outer corners. Zero it so the fill sits flush. */
 [id^="MainProduct-"] .quantity__button:first-child {
   margin-left: 0;
-  border-top-left-radius: var(--pdp-quantity-radius, 0.8rem);
-  border-bottom-left-radius: var(--pdp-quantity-radius, 0.8rem);
+  border-top-left-radius: var(--pdp-quantity-radius, 0);
+  border-bottom-left-radius: var(--pdp-quantity-radius, 0);
 }
 
 [id^="MainProduct-"] .quantity__button:last-child {
   margin-right: 0;
-  border-top-right-radius: var(--pdp-quantity-radius, 0.8rem);
-  border-bottom-right-radius: var(--pdp-quantity-radius, 0.8rem);
+  border-top-right-radius: var(--pdp-quantity-radius, 0);
+  border-bottom-right-radius: var(--pdp-quantity-radius, 0);
 }
 
 [id^="MainProduct-"] .quantity__input:not(:focus-visible):not(.focused),
@@ -211,4 +219,11 @@
   font-size: 2rem;
   font-weight: 600;
   opacity: 1;
+}
+
+/* 3D shadow on the .field wrapper, not .field__input - Dawn's
+   .field__input:focus sets box-shadow for the focus ring, so putting it on the
+   input would trade the focus indicator for the shadow. */
+[id^="MainProduct-"] .product-custom-message__field {
+  box-shadow: var(--pdp-3d-shadow);
 }
