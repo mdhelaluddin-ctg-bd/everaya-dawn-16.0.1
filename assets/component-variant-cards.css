@@ -1,31 +1,35 @@
-/* Full-width stacked radio cards for variant options.
+/* Two-up radio cards for variant options.
 
-   Layered over Dawn's existing pill markup — the same <input type="radio"> +
+   Layered over Dawn's existing pill markup - the same <input type="radio"> +
    <label> pairs, no Liquid restructuring. Everything is scoped under the
    --card modifier so quick-add drawers, featured-product and any other
    template using pills are untouched.
 
-   Sizing comes from --pdp-card-* custom properties emitted by the section, so
-   the merchant controls it without touching the global variant-pill tokens.
-
    Selectors compound --pill and --card (the fieldset carries both) because a
    single --card class ties Dawn's pill rules on specificity and would only win
-   by stylesheet order. */
+   by stylesheet order.
+
+   Sizing and the accent colour come from --pdp-* custom properties emitted by
+   the section, so the merchant controls them without touching the global
+   variant-pill tokens. */
 .product-form__input--card {
   --pdp-card-radius: 1rem;
   --pdp-card-min-height: 5.4rem;
   --pdp-card-gap: 0.8rem;
+  --pdp-card-accent: #2eaa43;
 
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: var(--pdp-card-gap);
   max-width: 100%;
-  /* Dawn sets min-width:fit-content on .product-form__input; with full-width
-     cards a long option value would push the fieldset past the column. */
+  /* Dawn sets min-width:fit-content on .product-form__input; without this a
+     long option value would push the fieldset past the column. */
   min-width: 0;
 }
 
+/* The legend is a flex item too, so it needs a full row of its own. */
 .product-form__input--pill.product-form__input--card .form__label {
+  flex: 0 0 100%;
   margin-bottom: 0.4rem;
   font-size: 1.3rem;
   font-weight: 600;
@@ -34,14 +38,19 @@
   color: rgb(var(--color-foreground));
 }
 
-/* Reset Dawn's inline-block pill into a full-width card. */
+/* Exactly two per row: two halves plus one gap fills the line. The radio
+   inputs are position:absolute in Dawn, so they take no flex slot. */
 .product-form__input--pill.product-form__input--card input[type='radio'] + label {
+  position: relative;
+  flex: 0 0 calc(50% - var(--pdp-card-gap) / 2);
+  min-width: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
-  width: 100%;
+  justify-content: center;
+  gap: 0.4rem;
   margin: 0;
-  padding: 1.2rem 1.6rem;
+  padding: 1.4rem 1.2rem;
   min-height: var(--pdp-card-min-height);
   border: 0.2rem solid rgba(var(--color-foreground), 0.18);
   border-radius: var(--pdp-card-radius);
@@ -50,41 +59,46 @@
   font-size: 1.5rem;
   letter-spacing: 0.02rem;
   line-height: 1.3;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   transition: border-color var(--duration-short) ease, background-color var(--duration-short) ease;
 }
 
 /* Dawn uses ::before as a shadow layer behind the pill. Repurpose it as the
-   radio dot, which is what makes these read as selectable cards. */
+   corner check badge - so there is no radio dot, only this. */
 .product-form__input--pill.product-form__input--card input[type='radio'] + label:before {
   content: '';
-  position: static;
-  z-index: auto;
-  flex: 0 0 auto;
+  position: absolute;
+  top: -0.7rem;
+  left: -0.7rem;
+  z-index: 1;
   width: 2rem;
   height: 2rem;
-  border: 0.2rem solid rgba(var(--color-foreground), 0.35);
   border-radius: 50%;
-  background-color: transparent;
+  background-color: var(--pdp-card-accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.3l2.2 2.2 4.6-4.6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.2rem 1.2rem;
   box-shadow: none;
-  transition: border-color var(--duration-short) ease, box-shadow var(--duration-short) ease;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--duration-short) ease, transform var(--duration-short) ease;
 }
 
-.product-form__input--pill.product-form__input--card input[type='radio'] + label:hover {
+.product-form__input--pill.product-form__input--card input[type='radio']:hover + label {
   border-color: rgba(var(--color-foreground), 0.45);
 }
 
 .product-form__input--pill.product-form__input--card input[type='radio']:checked + label {
-  border-color: rgb(var(--color-foreground));
-  background-color: rgba(var(--color-foreground), 0.04);
+  border-color: var(--pdp-card-accent);
+  background-color: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
 }
 
 .product-form__input--pill.product-form__input--card input[type='radio']:checked + label:before {
-  border-color: rgb(var(--color-foreground));
-  box-shadow: inset 0 0 0 0.35rem rgb(var(--color-background));
-  background-color: rgb(var(--color-foreground));
+  opacity: 1;
+  transform: scale(1);
 }
 
 .product-form__input--pill.product-form__input--card input[type='radio']:focus-visible + label {
@@ -98,23 +112,28 @@
   text-decoration: line-through;
 }
 
-/* Option label text, so the Recommended tag can be pushed to the right edge. */
 .variant-card__value {
-  flex: 1 1 auto;
+  display: block;
 }
 
 .variant-card__tag {
-  flex: 0 0 auto;
-  padding: 0.3rem 0.8rem;
+  padding: 0.2rem 0.7rem;
   border-radius: 999px;
-  background-color: rgb(var(--color-button));
-  color: rgb(var(--color-button-text));
+  background-color: var(--pdp-card-accent);
+  color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.04rem;
   line-height: 1.3;
   text-transform: none;
   white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-form__input--pill.product-form__input--card input[type='radio'] + label,
+  .product-form__input--pill.product-form__input--card input[type='radio'] + label:before {
+    transition: none;
+  }
 }
 
 @media screen and (forced-colors: active) {

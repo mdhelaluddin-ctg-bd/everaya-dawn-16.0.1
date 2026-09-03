@@ -52,6 +52,7 @@
       --pdp-cta-font-weight: {{ section.settings.cta_font_weight }};
       --pdp-variant-card-radius: {{ section.settings.variant_card_radius }}px;
       --pdp-variant-card-min-height: {{ section.settings.variant_card_min_height }}px;
+      {%- if section.settings.variant_card_accent != blank %}--pdp-variant-card-accent: {{ section.settings.variant_card_accent }};{% endif %}
       --pdp-media-width: {{ section.settings.media_width }}%;
       --pdp-info-width: {{ 100 | minus: section.settings.media_width }}%;
       --pdp-column-gap: {{ section.settings.column_gap }}px;
@@ -3069,6 +3070,12 @@
         "step": 2,
         "unit": "px",
         "default": 54
+      },
+      {
+        "type": "color",
+        "id": "variant_card_accent",
+        "label": "Selected card colour",
+        "default": "#2eaa43"
       },
       {
         "type": "header",
