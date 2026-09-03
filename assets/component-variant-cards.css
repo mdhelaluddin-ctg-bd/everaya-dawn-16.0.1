@@ -108,10 +108,13 @@
   outline-offset: 0.2rem;
 }
 
-.product-form__input--pill.product-form__input--card input[type='radio']:disabled + label {
+.product-form__input--pill.product-form__input--card input[type='radio']:disabled + label,
+.product-form__input--pill.product-form__input--card input[type='radio'].disabled + label {
   opacity: 0.5;
   cursor: not-allowed;
   text-decoration: line-through;
+  border-color: rgba(var(--color-foreground), 0.1);
+  box-shadow: none;
 }
 
 .variant-card__value {
