@@ -9,6 +9,10 @@
    blocks, keep Dawn's default button sizing. */
 .product__info-container .product-form__submit {
   min-height: var(--pdp-cta-height, 5rem);
+  /* Same 2px box treatment as the variant cards, in the button's own colour so
+     it reads as one solid block. Dawn sets border:0 on .button (0,1,0); this
+     is (0,2,0) and wins. */
+  border: 0.2rem solid rgb(var(--color-button));
   border-radius: var(--pdp-cta-radius, 0);
   font-size: var(--pdp-cta-font-size, 1.5rem);
   font-weight: var(--pdp-cta-font-weight, 500);
@@ -18,6 +22,7 @@
 
 .product__info-container .product-form__submit::after {
   border-radius: var(--pdp-cta-radius, 0);
+  box-shadow: none;
 }
 
 /* Label + icon sit together on one baseline. Dawn's button is already
@@ -157,6 +162,9 @@
   /* Matches Dawn's .field__input height so the stepper lines up with the
      custom message input. */
   min-height: 4.5rem;
+  /* Same gray as the -/+ fills, so it merges with them at the ends and frames
+     the white input in the middle - one border around the whole stepper. */
+  border: 0.2rem solid var(--pdp-quantity-button-color, #999999);
   border-radius: var(--pdp-quantity-radius, 0);
   box-shadow: var(--pdp-3d-shadow);
 }
