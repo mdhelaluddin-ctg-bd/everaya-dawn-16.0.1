@@ -79,3 +79,29 @@
   --pdp-card-min-height: var(--pdp-variant-card-min-height, 5.4rem);
   --pdp-card-accent: var(--pdp-variant-card-accent, #2eaa43);
 }
+
+/* Consistent form-label styling: variant legend, Quantity, and the
+   personalization field's label should all read at the same size/weight,
+   matching what the variant-card legend already uses (component-variant-cards.css).
+
+   Scoped with an attribute-prefix selector rather than .product__info-container:
+   featured-product.liquid renders that same class on its own, separate Quantity
+   block, and an unscoped rule would leak into it. id="MainProduct-{{ section.id }}"
+   exists only on this section's <product-info> root - featured-product's carries
+   no id at all, so this selector reaches every instance of this section on the
+   page without touching a different one. */
+[id^="MainProduct-"] .product-form__quantity .form__label,
+[id^="MainProduct-"] .product-custom-message__label {
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+}
+
+/* The message label is a full instruction sentence ("Write your sign off
+   message (Optional)"), not a short label like QUANTITY or SELECT NECKLACE.
+   Forcing it to caps would read as shouting - keep everything else consistent,
+   only exclude the transform here. */
+[id^="MainProduct-"] .product-custom-message__label {
+  text-transform: none;
+}
