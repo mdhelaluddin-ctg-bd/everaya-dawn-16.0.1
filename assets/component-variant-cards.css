@@ -93,7 +93,7 @@
 
 .product-form__input--pill.product-form__input--card input[type='radio']:checked + label {
   border-color: var(--pdp-card-accent);
-  background-color: rgb(var(--color-background));
+  background-color: rgba(var(--color-foreground), 0.06);
   color: rgb(var(--color-foreground));
 }
 
