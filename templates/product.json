@@ -174,7 +174,7 @@
         "media_width": 60,
         "column_gap": 40,
         "constrain_to_viewport": true,
-        "media_fit": "contain",
+        "media_fit": "cover",
         "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "show",
         "media_position": "left",
