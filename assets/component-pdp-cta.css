@@ -75,7 +75,7 @@
 
 /* Feed the card picker from the same token set so the column stays proportional. */
 .product__info-container .product-form__input--card {
-  --pdp-card-radius: var(--pdp-variant-card-radius, 1rem);
+  --pdp-card-radius: var(--pdp-variant-card-radius, 0.6rem);
   --pdp-card-min-height: var(--pdp-variant-card-min-height, 5.4rem);
   --pdp-card-accent: var(--pdp-variant-card-accent, #2eaa43);
 }
