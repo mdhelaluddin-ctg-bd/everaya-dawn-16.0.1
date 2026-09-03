@@ -82,3 +82,17 @@
   color: var(--pdp-sale-price-color, #2eaa43);
   font-weight: 700;
 }
+
+/* Dispatch promise as plain text on its own line, not a pill.
+
+   It is a sibling of the price and the badge row inside the
+   .product__price-block flex container, so a full flex-basis forces it onto
+   its own line and keeps it there regardless of how many pills precede it. */
+.product-ships-in {
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.75);
+}

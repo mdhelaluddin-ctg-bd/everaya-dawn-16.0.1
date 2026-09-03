@@ -39,7 +39,7 @@
   endif
 -%}
 
-{%- if show_free_shipping or show_ships_in or show_savings -%}
+{%- if show_free_shipping or show_savings -%}
   <div
     class="product-price-badges"
     {% if block.settings.badge_accent_color != blank %}
@@ -55,16 +55,14 @@
       </span>
     {%- endif -%}
 
-    {%- if show_ships_in -%}
-      <span class="product-price-badges__item">
-        {{ block.settings.ships_in_text | escape }}
-      </span>
-    {%- endif -%}
-
     {%- if show_savings -%}
       <span class="product-price-badges__item product-price-badges__item--savings">
         {{- block.settings.savings_prefix | escape }} {{ savings_percent }}%
       </span>
     {%- endif -%}
   </div>
+{%- endif -%}
+
+{%- if show_ships_in -%}
+  <p class="product-ships-in">{{ block.settings.ships_in_text | escape }}</p>
 {%- endif -%}
