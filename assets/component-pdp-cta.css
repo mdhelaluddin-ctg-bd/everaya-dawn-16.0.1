@@ -105,3 +105,43 @@
 [id^="MainProduct-"] .product-custom-message__label {
   text-transform: none;
 }
+
+/* Quantity stepper: filled gray buttons, white input, rounded outer corners,
+   a soft drop shadow. Reuses --pdp-variant-card-radius so the radius stays
+   consistent with the variant cards above it, rather than a separate slider.
+
+   Scoped with the same [id^="MainProduct-"] attribute-prefix pattern used for
+   the label-consistency rules above: .quantity is also rendered by the cart
+   drawer, cart page, product cards, quick order list and featured-product -
+   an unscoped rule would restyle the cart's quantity stepper too. */
+[id^="MainProduct-"] .quantity {
+  border-radius: var(--pdp-variant-card-radius, 0.6rem);
+  min-height: 5.6rem;
+  box-shadow: 0 0.4rem 1rem rgba(var(--color-shadow), 0.18);
+}
+
+[id^="MainProduct-"] .quantity:before,
+[id^="MainProduct-"] .quantity:after {
+  border-radius: var(--pdp-variant-card-radius, 0.6rem);
+}
+
+[id^="MainProduct-"] .quantity__button {
+  background-color: var(--pdp-quantity-button-color, #999999);
+  color: var(--pdp-quantity-icon-color, #333333);
+  width: calc(6rem / var(--font-body-scale));
+}
+
+[id^="MainProduct-"] .quantity__button:first-child {
+  border-top-left-radius: var(--pdp-variant-card-radius, 0.6rem);
+  border-bottom-left-radius: var(--pdp-variant-card-radius, 0.6rem);
+}
+
+[id^="MainProduct-"] .quantity__button:last-child {
+  border-top-right-radius: var(--pdp-variant-card-radius, 0.6rem);
+  border-bottom-right-radius: var(--pdp-variant-card-radius, 0.6rem);
+}
+
+[id^="MainProduct-"] .quantity__input {
+  background-color: rgb(var(--color-background));
+  opacity: 1;
+}
