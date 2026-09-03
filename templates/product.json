@@ -28,7 +28,7 @@
             "show_free_shipping_badge": true,
             "free_shipping_text": "Free shipping",
             "show_ships_in_badge": true,
-            "ships_in_text": "Ships in 1-2 business days",
+            "ships_in_text": "⟫ Ships in 1-2 business days",
             "show_savings_badge": false,
             "savings_prefix": "Save",
             "badge_accent_color": "#2eaa43"
