@@ -56,7 +56,7 @@
             "max_characters": 60,
             "required": false,
             "error_text": "Please add your message before adding to cart.",
-            "highlight_label": true,
+            "highlight_label": false,
             "help_text": "This line prints at the bottom of the card",
             "badge_text": "Free"
           }
