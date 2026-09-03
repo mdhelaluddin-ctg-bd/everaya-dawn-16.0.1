@@ -1,0 +1,43 @@
+/* Trust signal rows near the buy button. Paired with snippets/product-trust.liquid.
+   Two columns on tablet and up, one on small phones. Colours derive from the
+   active scheme's foreground so this works on any colour scheme. */
+.product-trust {
+  margin: 1.6rem 0;
+}
+
+.product-trust__list {
+  list-style: none;
+  margin: 0;
+  padding: 1.6rem 0 0;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.12);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem 2rem;
+}
+
+@media screen and (min-width: 480px) {
+  .product-trust__list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  color: rgba(var(--color-foreground), 0.82);
+}
+
+.product-trust__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: rgb(var(--color-foreground));
+}
+
+.product-trust__icon .svg-wrapper,
+.product-trust__icon svg {
+  width: 2.2rem;
+  height: 2.2rem;
+}

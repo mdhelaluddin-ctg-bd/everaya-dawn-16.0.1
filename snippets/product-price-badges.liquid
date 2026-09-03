@@ -1,0 +1,70 @@
+{%- comment -%}
+  Promotional badge row shown directly under the price: free shipping, a
+  dispatch promise, and a computed savings percentage.
+
+  IMPORTANT: this must render INSIDE `<div id="price-{{ section.id }}">`.
+  `product-info.js` swaps only that element's innerHTML on a variant change
+  (see updateSourceFromDestination('price')), so a savings badge rendered
+  outside it would keep showing the previous variant's discount.
+
+  Accepts:
+  - block: {Object} the `price` block, for its badge settings.
+  - product: {Object} product object.
+
+  Usage:
+  {% render 'product-price-badges', block: block, product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+
+  assign savings_percent = 0
+  if variant.compare_at_price > variant.price
+    assign savings_percent = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round
+  endif
+
+  assign show_savings = false
+  if block.settings.show_savings_badge and savings_percent > 0 and product.quantity_price_breaks_configured? != true
+    assign show_savings = true
+  endif
+
+  assign show_free_shipping = false
+  if block.settings.show_free_shipping_badge and block.settings.free_shipping_text != blank
+    assign show_free_shipping = true
+  endif
+
+  assign show_ships_in = false
+  if block.settings.show_ships_in_badge and block.settings.ships_in_text != blank
+    assign show_ships_in = true
+  endif
+-%}
+
+{%- if show_free_shipping or show_ships_in or show_savings -%}
+  <div
+    class="product-price-badges"
+    {% if block.settings.badge_accent_color != blank %}
+      style="--pdp-badge-accent: {{ block.settings.badge_accent_color }};"
+    {% endif %}
+  >
+    {%- if show_free_shipping -%}
+      <span class="product-price-badges__item product-price-badges__item--accent">
+        <span class="product-price-badges__check" aria-hidden="true">
+          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+        </span>
+        {{ block.settings.free_shipping_text | escape }}
+      </span>
+    {%- endif -%}
+
+    {%- if show_ships_in -%}
+      <span class="product-price-badges__item">
+        {{ block.settings.ships_in_text | escape }}
+      </span>
+    {%- endif -%}
+
+    {%- if show_savings -%}
+      <span class="product-price-badges__item product-price-badges__item--savings">
+        {{- block.settings.savings_prefix | escape }} {{ savings_percent }}%
+      </span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

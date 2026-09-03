@@ -74,7 +74,7 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+            class="product-form__submit button button--full-width{% if section.settings.cta_shadow %} product-form__submit--shadow{% endif %}{% if section.settings.cta_uppercase %} product-form__submit--uppercase{% endif %} {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
               or product.selected_or_first_available_variant == null
@@ -91,6 +91,12 @@
                 {{ 'products.product.add_to_cart' | t }}
               {%- endif -%}
             </span>
+            {%- if section.settings.cta_icon != blank and section.settings.cta_icon != 'none' -%}
+              {%- assign cta_icon_file = 'icon-' | append: section.settings.cta_icon | append: '.svg' -%}
+              <span class="product-form__submit-icon svg-wrapper" aria-hidden="true">
+                {{- cta_icon_file | inline_asset_content -}}
+              </span>
+            {%- endif -%}
             {%- render 'loading-spinner' -%}
           </button>
           {%- if show_dynamic_checkout -%}

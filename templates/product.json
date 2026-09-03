@@ -1,1 +1,177 @@
-{"sections":{"main":{"type":"main-product","blocks":{"vendor":{"type":"text","settings":{"text":"{{ product.vendor }}","text_style":"uppercase"}},"title":{"type":"title","settings":{}},"price":{"type":"price","settings":{}},"variant_picker":{"type":"variant_picker","settings":{"picker_type":"button","swatch_shape":"circle"}},"quantity_selector":{"type":"quantity_selector","settings":{}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true,"show_gift_card_recipient":true}},"description":{"type":"description","settings":{}},"share":{"type":"share","settings":{"share_label":"Share"}}},"block_order":["vendor","title","price","variant_picker","quantity_selector","buy_buttons","description","share"],"settings":{"enable_sticky_info":true,"color_scheme":"scheme-1","media_size":"large","constrain_to_viewport":true,"media_fit":"contain","gallery_layout":"stacked","mobile_thumbnails":"hide","media_position":"left","image_zoom":"lightbox","hide_variants":true,"enable_video_looping":false,"padding_top":36,"padding_bottom":12}},"disclosures":{"type":"disclosures","settings":{"padding_top":36,"padding_bottom":0}},"related-products":{"type":"related-products","settings":{"heading":"You may also like","heading_size":"h2","products_to_show":4,"columns_desktop":4,"columns_mobile":"2","color_scheme":"scheme-1","image_ratio":"square","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"padding_top":36,"padding_bottom":28}}},"order":["main","disclosures","related-products"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_dawn_badges": false,
+            "show_free_shipping_badge": true,
+            "free_shipping_text": "Free shipping",
+            "show_ships_in_badge": true,
+            "ships_in_text": "Ships in 1-2 business days",
+            "show_savings_badge": true,
+            "savings_prefix": "Save",
+            "badge_accent_color": "#2eaa43"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle",
+            "button_style": "card",
+            "label_prefix": "Select",
+            "recommended_values": "",
+            "recommended_label": "Recommended"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "custom_message": {
+          "type": "custom_message",
+          "settings": {
+            "label": "Write your sign off message (Optional)",
+            "property_name": "Sign off message",
+            "field_type": "text",
+            "placeholder": "Write your sign off message \"i love you always and forever\"",
+            "max_characters": 60,
+            "required": false,
+            "error_text": "Please add your message before adding to cart.",
+            "highlight_label": true,
+            "help_text": "This line prints at the bottom of the card",
+            "badge_text": "Free"
+          }
+        },
+        "delivery_estimate": {
+          "type": "delivery_estimate",
+          "settings": {}
+        },
+        "trust_badges": {
+          "type": "trust_badges",
+          "settings": {}
+        },
+        "collapsible_tab_1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "HAPPINESS GUARANTEE",
+            "icon": "heart",
+            "content": "<p><strong>100% HAPPINESS GUARANTEE</strong></p><p><br/>If your gift isn't right, please inform us within 14 days of delivery and we'll make it right — a replacement or a refund, your choice. Return shipping will be on the customer, except when an item arrives damaged, faulty, or incorrect, in which case we cover everything.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "READY TO GIVE",
+            "icon": "box",
+            "content": "<p>All our products are presentably packaged for hassle-free gifting.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_3": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "SHIPPING INFORMATION",
+            "icon": "plane",
+            "content": "<p><strong>Free shipping on every order.</strong><br/><br/><strong>Processing: 1–3 business days</strong><br/><br/>We print your message card and pack your gift by hand in our Florida facility before it ships.<br/><br/><strong>Then in transit:</strong><br/>US:      3–7 business days<br/>Canada:  5–12 business days<br/><br/><strong>Need it sooner</strong>? Express delivery is available <br/>for US orders — $11.99 at checkout, arriving in  4–7 business days total</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variant_picker",
+        "custom_message",
+        "quantity_selector",
+        "buy_buttons",
+        "delivery_estimate",
+        "trust_badges",
+        "collapsible_tab_1",
+        "collapsible_tab_2",
+        "collapsible_tab_3",
+        "description"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12,
+        "breadcrumbs_position": "info_column",
+        "breadcrumbs_home_label": "Home",
+        "enable_sticky_atc": true,
+        "cta_height": 60,
+        "cta_radius": 10,
+        "cta_font_size": 20,
+        "cta_font_weight": "700",
+        "cta_shadow": true,
+        "variant_card_radius": 10,
+        "variant_card_min_height": 54,
+        "media_width": 65,
+        "column_gap": 40,
+        "cta_background": "#4CAF50",
+        "cta_text_color": "#FFFFFF",
+        "cta_uppercase": true,
+        "cta_icon": "cart-heart"
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "main",
+    "disclosures",
+    "related-products"
+  ]
+}

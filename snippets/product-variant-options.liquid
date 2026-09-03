@@ -95,8 +95,28 @@
       {% endif %}
       {{ input_dataset }}
     >
+    {%- liquid
+      assign is_recommended = false
+      if block.settings.button_style == 'card'
+        assign recommended_source = product.metafields.custom.recommended_option_values.value
+        if recommended_source == blank
+          assign recommended_source = block.settings.recommended_values | split: ','
+        endif
+        assign value_key = value | downcase | strip
+        for recommended_value in recommended_source
+          assign recommended_key = recommended_value | downcase | strip
+          if recommended_key != blank and recommended_key == value_key
+            assign is_recommended = true
+            break
+          endif
+        endfor
+      endif
+    -%}
     <label for="{{ input_id }}">
-      {{ value -}}
+      <span class="variant-card__value">{{ value }}</span>
+      {%- if is_recommended and block.settings.recommended_label != blank -%}
+        <span class="variant-card__tag">{{ block.settings.recommended_label | escape }}</span>
+      {%- endif -%}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}

@@ -1,0 +1,36 @@
+/* Product page breadcrumb trail. Paired with snippets/breadcrumbs.liquid.
+   Colours derive from the active scheme's foreground, so this works on any
+   colour scheme without hardcoding a palette. */
+.breadcrumbs {
+  margin: 0 0 1.6rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  color: rgba(var(--color-foreground), 0.62);
+  line-height: 1.4;
+}
+
+.breadcrumbs__link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.breadcrumbs__link:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.breadcrumbs__link:focus-visible {
+  outline: 0.2rem solid rgb(var(--color-foreground));
+  outline-offset: 0.2rem;
+}
+
+.breadcrumbs__sep {
+  margin: 0 0.7rem;
+  color: rgba(var(--color-foreground), 0.35);
+}
+
+.breadcrumbs__current {
+  color: rgb(var(--color-foreground));
+}

@@ -9,6 +9,9 @@
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
+  {%- if block.settings.button_style == 'card' and block.settings.picker_type == 'button' -%}
+    {{ 'component-variant-cards.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
   <variant-selects
     id="variant-selects-{{ section.id }}"
     data-section="{{ section.id }}"
@@ -50,8 +53,19 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+        {%- liquid
+          assign pill_modifier = 'product-form__input--pill'
+          if block.settings.button_style == 'card'
+            assign pill_modifier = 'product-form__input--pill product-form__input--card'
+          endif
+
+          assign option_label = option.name
+          if block.settings.button_style == 'card' and block.settings.label_prefix != blank
+            assign option_label = block.settings.label_prefix | append: ' ' | append: option.name
+          endif
+        -%}
+        <fieldset class="js product-form__input {{ pill_modifier }}">
+          <legend class="form__label">{{ option_label }}</legend>
           {% render 'product-variant-options',
             product: product,
             option: option,

@@ -1,0 +1,80 @@
+/* Add to cart button emphasis and variant card sizing for the product page.
+
+   Every value comes from --pdp-* custom properties emitted by the section into
+   a scoped #MainProduct-<id> rule, so the merchant tunes this per section
+   without touching the global button tokens (which are preset-backed and would
+   be overwritten on the next theme-editor save).
+
+   Scoped to .product__info-container so quick-add drawers, which reuse these
+   blocks, keep Dawn's default button sizing. */
+.product__info-container .product-form__submit {
+  min-height: var(--pdp-cta-height, 5rem);
+  border-radius: var(--pdp-cta-radius, 0);
+  font-size: var(--pdp-cta-font-size, 1.5rem);
+  font-weight: var(--pdp-cta-font-weight, 500);
+  letter-spacing: 0.06rem;
+  transition: transform var(--duration-short) ease, box-shadow var(--duration-short) ease;
+}
+
+.product__info-container .product-form__submit::after {
+  border-radius: var(--pdp-cta-radius, 0);
+}
+
+/* Label + icon sit together on one baseline. Dawn's button is already
+   inline-flex and centred, so this only needs the gap and the icon size. */
+.product__info-container .product-form__submit,
+.sticky-atc__button {
+  gap: 1rem;
+}
+
+.product-form__submit--uppercase {
+  text-transform: uppercase;
+}
+
+.product-form__submit-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  width: var(--pdp-cta-icon-size, 2.4rem);
+  height: var(--pdp-cta-icon-size, 2.4rem);
+  color: currentColor;
+}
+
+.product-form__submit-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+
+.product__info-container .product-form__submit.product-form__submit--shadow {
+  box-shadow: 0 0.6rem 1.6rem rgba(var(--color-shadow), 0.18);
+}
+
+@media (hover: hover) {
+  .product__info-container .product-form__submit.product-form__submit--shadow:hover {
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.8rem 2rem rgba(var(--color-shadow), 0.22);
+  }
+}
+
+.product__info-container .product-form__submit.product-form__submit--shadow:active {
+  transform: translateY(0);
+  box-shadow: 0 0.3rem 0.9rem rgba(var(--color-shadow), 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product__info-container .product-form__submit {
+    transition: none;
+  }
+
+  .product__info-container .product-form__submit.product-form__submit--shadow:hover,
+  .product__info-container .product-form__submit.product-form__submit--shadow:active {
+    transform: none;
+  }
+}
+
+/* Feed the card picker from the same token set so the column stays proportional. */
+.product__info-container .product-form__input--card {
+  --pdp-card-radius: var(--pdp-variant-card-radius, 1rem);
+  --pdp-card-min-height: var(--pdp-variant-card-min-height, 5.4rem);
+}

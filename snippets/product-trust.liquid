@@ -1,0 +1,37 @@
+{%- comment -%}
+  Trust signals shown near the product buy button.
+
+  Renders up to four rows, each an icon + a line of text. A row appears only
+  when its text is set, so the merchant controls how many show. Icons come from
+  Dawn's built-in set via the `icon-accordion` snippet, so they inherit the
+  active colour scheme rather than shipping bespoke SVG.
+
+  Accepts:
+  - block: {Object} the `trust_badges` block (settings text_1..text_4, icon_1..icon_4).
+
+  Usage:
+  {% render 'product-trust', block: block %}
+{%- endcomment -%}
+
+<div class="product-trust quick-add-hidden" {{ block.shopify_attributes }}>
+  <ul class="product-trust__list" role="list">
+    {%- for i in (1..4) -%}
+      {%- liquid
+        assign text_key = 'text_' | append: i
+        assign icon_key = 'icon_' | append: i
+        assign row_text = block.settings[text_key]
+        assign row_icon = block.settings[icon_key]
+      -%}
+      {%- if row_text != blank -%}
+        <li class="product-trust__item">
+          {%- if row_icon != blank and row_icon != 'none' -%}
+            <span class="product-trust__icon" aria-hidden="true">
+              {%- render 'icon-accordion', icon: row_icon -%}
+            </span>
+          {%- endif -%}
+          <span>{{ row_text | escape }}</span>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>

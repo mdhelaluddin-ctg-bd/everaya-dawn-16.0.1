@@ -1,0 +1,43 @@
+/* Product page column layout.
+
+   Dawn hard-caps the info column's contents at 44rem (440px) and the column
+   itself at 60rem, regardless of how wide the column actually is. On a page
+   wider than ~1200px that leaves the Add to cart button and variant cards
+   floating short of the column edge. These rules let them fill the column and
+   put the media/info split under a merchant setting.
+
+   Everything is scoped to .product__info-container so quick-add drawers and
+   other sections keep Dawn's defaults. */
+@media screen and (min-width: 750px) {
+  .product__info-container {
+    max-width: none;
+  }
+
+  .product__info-container .product-form__input,
+  .product__info-container .product-form__buttons,
+  .product__info-container .product-custom-message,
+  .product__info-container .product-price-badges {
+    max-width: 100%;
+  }
+}
+
+/* Merchant-controlled media/info split. Higher specificity than Dawn's
+   .product--large / --medium / --small rules (0,2,0 vs 0,1,0 plus the :not),
+   so it wins whatever the media size setting is. */
+@media screen and (min-width: 990px) {
+  .product.grid:not(.product--no-media) .product__media-wrapper {
+    max-width: var(--pdp-media-width, 65%);
+    width: calc(var(--pdp-media-width, 65%) - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+
+  .product.grid:not(.product--no-media) .product__info-wrapper {
+    max-width: var(--pdp-info-width, 35%);
+    width: calc(var(--pdp-info-width, 35%) - var(--grid-desktop-horizontal-spacing) / 2);
+    padding-left: var(--pdp-column-gap, 4rem);
+  }
+
+  .product.grid:not(.product--no-media).product--right .product__info-wrapper {
+    padding-left: 0;
+    padding-right: var(--pdp-column-gap, 4rem);
+  }
+}

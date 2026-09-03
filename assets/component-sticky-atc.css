@@ -1,0 +1,87 @@
+/* Floating add-to-cart bar, mobile only.
+   Paired with snippets/sticky-atc.liquid and assets/sticky-atc.js.
+
+   Display is none by default so the bar never appears on desktop, where the
+   buy buttons stay in the sticky info column; JS only toggles `hidden` and
+   the --visible class, which are inert above the breakpoint. */
+.sticky-atc {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .sticky-atc {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    background: rgba(var(--color-background), 0.97);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(var(--color-foreground), 0.12);
+    box-shadow: 0 -4px 24px rgba(var(--color-foreground), 0.08);
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease,
+      visibility 0.32s ease;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .sticky-atc[hidden] {
+    display: none;
+  }
+
+  .sticky-atc--visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sticky-atc__inner {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .sticky-atc__quantity {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  }
+
+  .sticky-atc__quantity-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    min-height: 4.8rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: currentColor;
+    cursor: pointer;
+  }
+
+  .sticky-atc__quantity-button .svg-wrapper {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .sticky-atc__quantity-value {
+    min-width: 2.4rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sticky-atc__button {
+    flex: 1 1 auto;
+    min-height: 4.8rem;
+    margin: 0;
+  }
+}

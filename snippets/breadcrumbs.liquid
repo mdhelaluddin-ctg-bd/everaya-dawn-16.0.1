@@ -1,0 +1,24 @@
+{%- comment -%}
+  Breadcrumb trail for the product page: Home / Collection / Product title
+  Uses the collection in context (when arrived from a collection) or the
+  product's first collection as a fallback.
+
+  Accepts: product, collection, home_label (optional, defaults to "Home").
+{%- endcomment -%}
+{%- liquid
+  assign crumb_collection = collection
+  if crumb_collection == blank
+    assign crumb_collection = product.collections.first
+  endif
+-%}
+<nav class="breadcrumbs quick-add-hidden" role="navigation" aria-label="breadcrumbs">
+  <a href="{{ routes.root_url }}" class="breadcrumbs__link">{{ home_label | default: 'Home' }}</a>
+  {%- if crumb_collection and crumb_collection.url != blank -%}
+    <span class="breadcrumbs__sep" aria-hidden="true">/</span>
+    <a href="{{ crumb_collection.url }}" class="breadcrumbs__link">{{ crumb_collection.title }}</a>
+  {%- endif -%}
+  {%- if product and product.title != blank -%}
+    <span class="breadcrumbs__sep" aria-hidden="true">/</span>
+    <span class="breadcrumbs__current" aria-current="page">{{ product.title }}</span>
+  {%- endif -%}
+</nav>

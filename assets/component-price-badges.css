@@ -1,0 +1,52 @@
+/* Promotional badge row under the price. Paired with
+   snippets/product-price-badges.liquid.
+
+   The accent colour is the one non-Dawn colour in this design, so it is fed by
+   a merchant colour setting through --pdp-badge-accent rather than hardcoded.
+   Everything else derives from the active colour scheme. */
+.product-price-badges {
+  --pdp-badge-accent: rgb(var(--color-foreground));
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1rem 0 0;
+}
+
+.product-price-badges__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.22);
+  border-radius: var(--badge-corner-radius, 0);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.04rem;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.85);
+  white-space: nowrap;
+}
+
+.product-price-badges__item--accent {
+  border-color: var(--pdp-badge-accent);
+  color: var(--pdp-badge-accent);
+}
+
+.product-price-badges__item--savings {
+  background-color: rgb(var(--color-foreground));
+  border-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.product-price-badges__check {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.product-price-badges__check svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}

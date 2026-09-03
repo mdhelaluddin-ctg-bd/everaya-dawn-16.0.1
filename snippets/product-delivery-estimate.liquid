@@ -1,0 +1,90 @@
+{%- comment -%}
+  Country-aware delivery estimate using business-day offsets.
+
+  Every string and day count comes from block settings so the merchant can edit
+  the copy in the theme editor. The dates themselves are computed client side by
+  assets/delivery-estimate.js, which skips weekends and shifts the window by a
+  business day once the cutoff hour has passed.
+
+  Accepts:
+  - block: {Object} the `delivery_estimate` block.
+
+  Usage:
+  {% render 'product-delivery-estimate', block: block %}
+{%- endcomment -%}
+
+{{ 'component-delivery-estimate.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'delivery-estimate.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign minimum_days = block.settings.minimum_days
+  assign maximum_days = block.settings.maximum_days
+
+  case localization.country.iso_code
+    when 'US'
+      assign minimum_days = block.settings.us_minimum_days
+      assign maximum_days = block.settings.us_maximum_days
+    when 'CA'
+      assign minimum_days = block.settings.ca_minimum_days
+      assign maximum_days = block.settings.ca_maximum_days
+  endcase
+
+  assign priority_list = block.settings.priority_countries | upcase | split: ','
+  assign show_priority = false
+  if block.settings.show_priority_note
+    for country_code in priority_list
+      assign trimmed_code = country_code | strip
+      if trimmed_code == localization.country.iso_code
+        assign show_priority = true
+        break
+      endif
+    endfor
+  endif
+-%}
+
+<delivery-estimate
+  class="delivery-estimate quick-add-hidden"
+  data-min-days="{{ minimum_days }}"
+  data-max-days="{{ maximum_days }}"
+  data-cutoff-hour="{{ block.settings.cutoff_hour }}"
+  data-locale="{{ request.locale.iso_code | escape }}"
+  {% if block.settings.accent_color != blank %}
+    style="--delivery-accent: {{ block.settings.accent_color }};"
+  {% endif %}
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+    <span class="delivery-estimate__icon" aria-hidden="true">
+      {%- render 'icon-accordion', icon: block.settings.icon -%}
+    </span>
+  {%- endif -%}
+  <span class="delivery-estimate__content">
+    <strong class="delivery-estimate__heading">
+      {{- block.settings.heading | escape -}}
+    </strong>
+    <span class="delivery-estimate__copy" aria-live="polite">
+      {{- block.settings.between_text | escape }}
+      <time data-delivery-start>&hellip;</time>
+      {{ block.settings.and_text | escape }}
+      <time data-delivery-end>&hellip;</time>.
+    </span>
+  </span>
+</delivery-estimate>
+
+{%- if show_priority and block.settings.priority_text != blank -%}
+  <div
+    class="expedited-shipping quick-add-hidden"
+    role="note"
+    {% if block.settings.accent_color != blank %}
+      style="--delivery-accent: {{ block.settings.accent_color }};"
+    {% endif %}
+  >
+    <span class="expedited-shipping__status" aria-hidden="true"></span>
+    <span class="expedited-shipping__copy">
+      {%- if block.settings.priority_heading != blank -%}
+        <strong>{{ block.settings.priority_heading | escape }}</strong>
+      {%- endif -%}
+      {{ block.settings.priority_text | escape }}
+    </span>
+  </div>
+{%- endif -%}
