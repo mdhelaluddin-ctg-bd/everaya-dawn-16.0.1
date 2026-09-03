@@ -58,14 +58,14 @@
             "error_text": "Please add your message before adding to cart.",
             "highlight_label": false,
             "help_text": "This line prints at the bottom of the card",
-            "badge_text": "Free"
+            "badge_text": "FREE"
           }
         },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {
             "quantity_button_color": "#999999",
-            "quantity_icon_color": "#333333"
+            "quantity_icon_color": "#000000"
           }
         },
         "buy_buttons": {
