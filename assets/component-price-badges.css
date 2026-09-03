@@ -74,13 +74,21 @@
 
 /* Only when actually discounted, so a product with no compare-at price keeps
    the default text colour instead of rendering green. */
-.product__price-block .price--on-sale .price-item--regular {
+.product__price-block .price.price--on-sale .price-item--regular {
   color: var(--pdp-compare-price-color, #d02d2d);
+  font-size: var(--pdp-price-size, 2.8rem);
 }
 
-.product__price-block .price--on-sale .price-item--sale {
+.product__price-block .price.price--on-sale .price-item--sale {
   color: var(--pdp-sale-price-color, #2eaa43);
+  font-size: var(--pdp-price-size, 2.8rem);
   font-weight: 700;
+}
+
+/* Not-on-sale products use the same size, so the price does not jump when a
+   compare-at price is removed. Colour stays at the theme default. */
+.product__price-block .price .price__regular .price-item--regular {
+  font-size: var(--pdp-price-size, 2.8rem);
 }
 
 /* Dispatch promise as plain text on its own line, not a pill.

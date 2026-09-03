@@ -170,6 +170,7 @@
                   {%- capture price_style -%}
                     {%- if block.settings.sale_price_color != blank %}--pdp-sale-price-color: {{ block.settings.sale_price_color }};{% endif -%}
                     {%- if block.settings.compare_price_color != blank %}--pdp-compare-price-color: {{ block.settings.compare_price_color }};{% endif -%}
+                    --pdp-price-size: {{ block.settings.price_font_size | default: 28 | divided_by: 10.0 }}rem;
                   {%- endcapture -%}
                   <div
                     id="price-{{ section.id }}"
@@ -940,6 +941,17 @@
             "id": "compare_price_color",
             "label": "Compare at price colour",
             "default": "#d02d2d"
+          },
+          {
+            "type": "range",
+            "id": "price_font_size",
+            "label": "Price font size",
+            "min": 14,
+            "max": 48,
+            "step": 1,
+            "unit": "px",
+            "default": 28,
+            "info": "28px equals 2.8rem at the default text size."
           },
           {
             "type": "header",
