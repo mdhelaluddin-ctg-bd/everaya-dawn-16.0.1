@@ -61,7 +61,7 @@
     "card_price_color": "#008118",
     "card_compare_price_color": "#d02d2d",
     "card_price_order": "current_first",
-    "card_show_from_price": true,
+    "card_show_from_price": false,
     "card_border_thickness": 1,
     "card_border_opacity": 10,
     "card_corner_radius": 0,
