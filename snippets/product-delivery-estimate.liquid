@@ -61,13 +61,13 @@
     </span>
   {%- endif -%}
   <span class="delivery-estimate__content">
-    <strong class="delivery-estimate__heading">
-      {{- block.settings.heading | escape -}}
+    <strong class="delivery-estimate__heading inline-richtext">
+      {{- block.settings.heading -}}
     </strong>
-    <span class="delivery-estimate__copy" aria-live="polite">
-      {{- block.settings.between_text | escape }}
+    <span class="delivery-estimate__copy inline-richtext" aria-live="polite">
+      {{- block.settings.between_text }}
       <time data-delivery-start>&hellip;</time>
-      {{ block.settings.and_text | escape }}
+      {{ block.settings.and_text }}
       <time data-delivery-end>&hellip;</time>.
     </span>
   </span>
