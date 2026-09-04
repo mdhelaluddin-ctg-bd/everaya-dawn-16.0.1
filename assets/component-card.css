@@ -305,6 +305,50 @@
   margin-bottom: 0;
 }
 
+/* Product card theme settings: title, price, discount, free shipping. */
+.product-card-wrapper .card__heading.h5 {
+  font-size: var(--card-title-size, 2.2rem);
+}
+
+.product-card-wrapper .price .price-item {
+  font-size: var(--card-price-size, 1.6rem);
+}
+
+.product-card-wrapper .price .price-item--sale,
+.product-card-wrapper .price:not(.price--on-sale) .price-item--regular {
+  color: var(--card-price-color, rgb(var(--color-foreground)));
+}
+
+.product-card-wrapper .price--on-sale .price-item--regular {
+  color: var(--card-compare-price-color, #d02d2d);
+}
+
+.product-card-wrapper--price-current-first .price--on-sale .price__sale {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.6rem;
+  flex-direction: row-reverse;
+}
+
+.badge--discount {
+  background-color: var(--card-discount-badge-color, #2eaa43);
+  border: 0;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04rem;
+}
+
+.product-card-wrapper--shipping-filled .product-price-badges__item--accent {
+  background-color: var(--pdp-badge-accent, #2eaa43);
+  border-color: var(--pdp-badge-accent, #2eaa43);
+  color: var(--card-free-shipping-text-color, #fff);
+}
+
+.product-card-wrapper--shipping-filled .product-price-badges__check {
+  color: var(--card-free-shipping-text-color, #fff);
+}
+
 /* Match PDP free-shipping pill spacing under the card title. */
 .card__information > .product-price-badges {
   margin-top: 0.6rem;

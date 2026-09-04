@@ -559,6 +559,124 @@
       },
       {
         "type": "header",
+        "content": "Product card content"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_discount_badge",
+        "default": true,
+        "label": "Show discount percentage badge"
+      },
+      {
+        "type": "select",
+        "id": "card_discount_badge_position",
+        "label": "Discount badge position",
+        "options": [
+          {
+            "value": "top right",
+            "label": "Top right"
+          },
+          {
+            "value": "top left",
+            "label": "Top left"
+          },
+          {
+            "value": "bottom right",
+            "label": "Bottom right"
+          },
+          {
+            "value": "bottom left",
+            "label": "Bottom left"
+          }
+        ],
+        "default": "top right"
+      },
+      {
+        "type": "color",
+        "id": "card_discount_badge_color",
+        "label": "Discount badge colour",
+        "default": "#2eaa43"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_sale_badge",
+        "default": false,
+        "label": "Show Sale badge",
+        "info": "Hidden when the discount percentage badge is enabled."
+      },
+      {
+        "type": "range",
+        "id": "card_title_font_size",
+        "min": 14,
+        "max": 28,
+        "step": 1,
+        "unit": "px",
+        "label": "Product title font size",
+        "default": 22
+      },
+      {
+        "type": "select",
+        "id": "card_free_shipping_style",
+        "label": "Free shipping tag style",
+        "options": [
+          {
+            "value": "filled",
+            "label": "Filled"
+          },
+          {
+            "value": "outline",
+            "label": "Outline"
+          }
+        ],
+        "default": "filled"
+      },
+      {
+        "type": "color",
+        "id": "card_free_shipping_text_color",
+        "label": "Free shipping text colour",
+        "default": "#ffffff",
+        "info": "Used when the free shipping tag style is Filled."
+      },
+      {
+        "type": "range",
+        "id": "card_price_font_size",
+        "min": 12,
+        "max": 28,
+        "step": 1,
+        "unit": "px",
+        "label": "Price font size",
+        "default": 16
+      },
+      {
+        "type": "color",
+        "id": "card_price_color",
+        "label": "Current price colour",
+        "info": "Leave blank to use the colour scheme."
+      },
+      {
+        "type": "color",
+        "id": "card_compare_price_color",
+        "label": "Compare-at price colour",
+        "default": "#d02d2d"
+      },
+      {
+        "type": "select",
+        "id": "card_price_order",
+        "label": "Price order",
+        "options": [
+          {
+            "value": "current_first",
+            "label": "Current price first"
+          },
+          {
+            "value": "compare_first",
+            "label": "Compare-at price first"
+          }
+        ],
+        "default": "current_first"
+      },
+      {
+        "type": "header",
         "content": "t:settings_schema.global.settings.header__border.content"
       },
       {
