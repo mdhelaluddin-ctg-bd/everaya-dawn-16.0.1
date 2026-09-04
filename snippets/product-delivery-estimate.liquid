@@ -48,9 +48,11 @@
   data-max-days="{{ maximum_days }}"
   data-cutoff-hour="{{ block.settings.cutoff_hour }}"
   data-locale="{{ request.locale.iso_code | escape }}"
-  {% if block.settings.accent_color != blank %}
-    style="--delivery-accent: {{ block.settings.accent_color }};"
-  {% endif %}
+  {%- capture delivery_style -%}
+    {%- if block.settings.accent_color != blank %}--delivery-accent: {{ block.settings.accent_color }};{% endif -%}
+    {%- if block.settings.background_color != blank %}--delivery-background: {{ block.settings.background_color }};{% endif -%}
+  {%- endcapture -%}
+  {% if delivery_style != blank %}style="{{ delivery_style }}"{% endif %}
   {{ block.shopify_attributes }}
 >
   {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
