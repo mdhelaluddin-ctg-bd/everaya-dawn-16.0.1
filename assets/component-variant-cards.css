@@ -69,26 +69,26 @@
 /* Dawn uses ::before as a shadow layer behind the pill. Repurpose it as the
    corner check badge - so there is no radio dot, only this.
 
-   Attached flush into the card's top-left corner. top/left:0 on an absolutely
+   Attached flush into the card's top-right corner. top/right:0 on an absolutely
    positioned pseudo resolves to the padding edge, i.e. just inside the 2px
    border, so it tucks into the corner without covering or crossing it.
 
-   Corner radii: square except the bottom-right, so it reads as a corner tab.
-   The top-left is not decorative rounding - it takes the card's inner radius
-   (outer minus border width) so the badge sits flush inside the card's own
-   rounded corner; it resolves to 0 by itself once the card radius setting is
-   0, at which point three corners are square as intended. */
+   Corner radii: square except the bottom-left - the corner pointing into the
+   card - so it reads as a corner tab. The top-right is not decorative rounding:
+   it takes the card's inner radius (outer minus border width) so the badge sits
+   flush inside the card's own rounded corner, and resolves to 0 by itself once
+   the card radius setting is 0. */
 .product-form__input--pill.product-form__input--card input[type='radio'] + label:before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   z-index: 1;
   width: 2.2rem;
   height: 2.2rem;
   border-radius: 0;
-  border-top-left-radius: max(0px, calc(var(--pdp-card-radius, 0px) - 0.2rem));
-  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: max(0px, calc(var(--pdp-card-radius, 0px) - 0.2rem));
+  border-bottom-left-radius: 0.5rem;
   background-color: var(--pdp-card-accent);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.3l2.2 2.2 4.6-4.6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -97,7 +97,7 @@
   box-shadow: none;
   opacity: 0;
   transform: scale(0.6);
-  transform-origin: top left;
+  transform-origin: top right;
   transition: opacity var(--duration-short) ease, transform var(--duration-short) ease;
 }
 
