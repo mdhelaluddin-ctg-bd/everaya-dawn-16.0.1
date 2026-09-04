@@ -56,7 +56,6 @@
   -%}
 
   {%- capture card_style_vars -%}
-    --ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;
     --card-title-size: {{ settings.card_title_font_size | default: 22 | divided_by: 10.0 }}rem;
     --card-price-size: {{ settings.card_price_font_size | default: 16 | divided_by: 10.0 }}rem;
     --card-discount-badge-color: {{ settings.card_discount_badge_color | default: '#2eaa43' }};
@@ -73,7 +72,10 @@
   {%- endcapture -%}
 
   <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
-    <div class="card-wrapper product-card-wrapper underline-links-hover{% if card_price_order == 'current_first' %} product-card-wrapper--price-current-first{% endif %}{% if free_shipping_style == 'filled' %} product-card-wrapper--shipping-filled{% endif %}">
+    <div
+      class="card-wrapper product-card-wrapper underline-links-hover{% if card_price_order == 'current_first' %} product-card-wrapper--price-current-first{% endif %}{% if free_shipping_style == 'filled' %} product-card-wrapper--shipping-filled{% endif %}"
+      style="{{ card_style_vars | strip }}"
+    >
       <div
         class="
           card card--{{ settings.card_style }}
@@ -84,7 +86,7 @@
           {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
           {% if horizontal_class %} card--horizontal{% endif %}
         "
-        style="{{ card_style_vars | strip }}"
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
         <div
           class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"

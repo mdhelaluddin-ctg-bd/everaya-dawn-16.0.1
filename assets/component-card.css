@@ -331,7 +331,7 @@
   flex-direction: row-reverse;
 }
 
-.badge--discount {
+.product-card-wrapper .badge--discount {
   background-color: var(--card-discount-badge-color, #2eaa43);
   border: 0;
   color: #fff;
@@ -364,6 +364,15 @@
   font-size: calc(var(--font-heading-scale) * 1.2rem);
 }
 
+/* Theme Cards settings should still win on horizontal product cards. */
+.product-card-wrapper .card--horizontal .card__heading.h5 {
+  font-size: var(--card-title-size, 2.2rem);
+}
+
+.product-card-wrapper .card--horizontal .price .price-item {
+  font-size: var(--card-price-size, 1.6rem);
+}
+
 .card--horizontal
   .card-information
   > *:not(.visually-hidden:first-child)
@@ -380,6 +389,14 @@
   .card--horizontal .price__container .price-item,
   .card--horizontal__quick-add {
     font-size: calc(var(--font-heading-scale) * 1.3rem);
+  }
+
+  .product-card-wrapper .card--horizontal .card__heading.h5 {
+    font-size: var(--card-title-size, 2.2rem);
+  }
+
+  .product-card-wrapper .card--horizontal .price .price-item {
+    font-size: var(--card-price-size, 1.6rem);
   }
 }
 
