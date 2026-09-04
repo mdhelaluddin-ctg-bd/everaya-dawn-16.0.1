@@ -114,6 +114,7 @@
         },
         "trust_badges": {
           "type": "trust_badges",
+          "disabled": true,
           "settings": {
             "text_1": "Free shipping on every order",
             "icon_1": "truck",
