@@ -83,7 +83,7 @@
     <span class="expedited-shipping__copy">
       {%- if block.settings.priority_heading != blank -%}
         <strong>{{ block.settings.priority_heading | escape }}</strong>
-      {%- endif -%}
+      {% endif %}
       {{ block.settings.priority_text | escape }}
     </span>
   </div>
