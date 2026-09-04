@@ -75,6 +75,14 @@
             "show_gift_card_recipient": true
           }
         },
+        "trust_image_XWzDiH": {
+          "type": "trust_image",
+          "settings": {
+            "image": "shopify://shop_images/Updated_JUNE_2026_-_Product_Page_-_1_large_d60391c9-639a-4dd0-95ff-e145b0b7e350.avif",
+            "max_width": 100,
+            "alignment": "center"
+          }
+        },
         "delivery_estimate": {
           "type": "delivery_estimate",
           "settings": {
@@ -148,6 +156,7 @@
         "custom_message",
         "quantity_selector",
         "buy_buttons",
+        "trust_image_XWzDiH",
         "delivery_estimate",
         "trust_badges",
         "collapsible_tab_1",
