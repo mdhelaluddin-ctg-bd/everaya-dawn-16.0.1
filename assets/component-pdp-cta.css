@@ -249,3 +249,19 @@
 [id^="MainProduct-"] .product-custom-message__field {
   box-shadow: var(--pdp-3d-shadow);
 }
+
+/* Trust image block (payment / guarantee badge strip). Spacing matches
+   .product-trust so it sits in the same vertical rhythm as the other
+   reassurance elements in the column. */
+.product-trust-image {
+  display: flex;
+  justify-content: var(--pdp-trust-image-align, center);
+  margin: 1.6rem 0;
+}
+
+.product-trust-image__img {
+  display: block;
+  width: var(--pdp-trust-image-width, 100%);
+  height: auto;
+  max-width: 100%;
+}

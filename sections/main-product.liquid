@@ -575,6 +575,24 @@
                     product_form_id: product_form_id,
                     section_id: section.id
                   -%}
+                {%- when 'trust_image' -%}
+                  {%- if block.settings.image != blank -%}
+                    <div
+                      class="product-trust-image quick-add-hidden"
+                      style="--pdp-trust-image-width: {{ block.settings.max_width | default: 100 }}%; --pdp-trust-image-align: {{ block.settings.alignment | default: 'center' }};"
+                      {{ block.shopify_attributes }}
+                    >
+                      {{
+                        block.settings.image
+                        | image_url: width: 1600
+                        | image_tag:
+                          widths: '200, 300, 400, 500, 600, 750, 900, 1100, 1300, 1600',
+                          sizes: '(min-width: 990px) 44rem, calc(100vw - 3rem)',
+                          class: 'product-trust-image__img',
+                          loading: 'lazy'
+                      }}
+                    </div>
+                  {%- endif -%}
                 {%- when 'delivery_estimate' -%}
                   {%- render 'product-delivery-estimate', block: block -%}
                 {%- when 'trust_badges' -%}
@@ -1450,6 +1468,48 @@
             "id": "priority_text",
             "label": "Note text",
             "default": "Priority shipping is available at checkout."
+          }
+        ]
+      },
+      {
+        "type": "trust_image",
+        "name": "Trust image",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "range",
+            "id": "max_width",
+            "label": "Maximum width",
+            "min": 40,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "default": 100
+          },
+          {
+            "type": "select",
+            "id": "alignment",
+            "label": "Alignment",
+            "options": [
+              {
+                "value": "flex-start",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "flex-end",
+                "label": "Right"
+              }
+            ],
+            "default": "center"
           }
         ]
       },
