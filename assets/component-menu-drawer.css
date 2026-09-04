@@ -101,7 +101,11 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__menu-item {
   padding: 1.1rem 3rem;
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: var(--header-menu-font-size, 1.8rem);
+  font-weight: var(--header-menu-font-weight, 400);
+  letter-spacing: var(--header-menu-letter-spacing, 0);
+  text-transform: var(--header-menu-text-transform, none);
+  color: var(--header-menu-color, rgba(var(--color-foreground), 0.75));
 }
 
 .menu-drawer summary.menu-drawer__menu-item {
@@ -113,7 +117,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__close-button:focus,
 .menu-drawer__menu-item:hover,
 .menu-drawer__close-button:hover {
-  color: rgb(var(--color-foreground));
+  color: var(--header-menu-hover-color, rgb(var(--color-foreground)));
   background-color: rgba(var(--color-foreground), 0.04);
 }
 

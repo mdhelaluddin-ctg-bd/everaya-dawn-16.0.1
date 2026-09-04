@@ -101,6 +101,22 @@
 </style>
 
 {%- style -%}
+  .header-wrapper {
+    {%- if section.settings.header_background != blank -%}
+      background: {{ section.settings.header_background }};
+    {%- endif -%}
+    --header-menu-font-size: {{ section.settings.menu_font_size | default: 14 | divided_by: 10.0 }}rem;
+    --header-menu-font-weight: {{ section.settings.menu_font_weight | default: 400 }};
+    --header-menu-letter-spacing: {{ section.settings.menu_letter_spacing | default: 0 | divided_by: 10.0 }}em;
+    --header-menu-text-transform: {% if section.settings.menu_uppercase %}uppercase{% else %}none{% endif %};
+    {%- if section.settings.menu_text_color != blank -%}
+      --header-menu-color: {{ section.settings.menu_text_color }};
+    {%- endif -%}
+    {%- if section.settings.menu_text_hover_color != blank -%}
+      --header-menu-hover-color: {{ section.settings.menu_text_hover_color }};
+    {%- endif -%}
+  }
+
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
   }
@@ -616,6 +632,78 @@
       "id": "menu_color_scheme",
       "label": "t:sections.header.settings.menu_color_scheme.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Menu style"
+    },
+    {
+      "type": "color",
+      "id": "header_background",
+      "label": "Header background",
+      "info": "Optional. Overrides the colour scheme background when set."
+    },
+    {
+      "type": "range",
+      "id": "menu_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Menu font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "menu_text_color",
+      "label": "Menu text colour",
+      "info": "Optional. Leave blank to use the colour scheme."
+    },
+    {
+      "type": "color",
+      "id": "menu_text_hover_color",
+      "label": "Menu hover colour",
+      "info": "Optional. Leave blank to use the colour scheme."
+    },
+    {
+      "type": "select",
+      "id": "menu_font_weight",
+      "label": "Menu font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_uppercase",
+      "default": false,
+      "label": "Uppercase menu labels"
+    },
+    {
+      "type": "range",
+      "id": "menu_letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Menu letter spacing",
+      "info": "Increments of 0.1em",
+      "default": 0
     },
     {
       "type": "header",
