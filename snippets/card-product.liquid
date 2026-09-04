@@ -162,6 +162,21 @@
                 {{ card_product.title | escape }}
               </a>
             </h3>
+            {%- if show_free_shipping_tag and free_shipping_tag_text != blank -%}
+              <div
+                class="product-price-badges"
+                {% if free_shipping_tag_color != blank %}
+                  style="--pdp-badge-accent: {{ free_shipping_tag_color }};"
+                {% endif %}
+              >
+                <span class="product-price-badges__item product-price-badges__item--accent">
+                  <span class="product-price-badges__check" aria-hidden="true">
+                    {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                  </span>
+                  {{ free_shipping_tag_text | escape }}
+                </span>
+              </div>
+            {%- endif -%}
             <div class="card-information">
               {%- if show_vendor -%}
                 <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>

@@ -305,6 +305,11 @@
   margin-bottom: 0;
 }
 
+/* Match PDP free-shipping pill spacing under the card title. */
+.card__information > .product-price-badges {
+  margin-top: 0.6rem;
+}
+
 .card__heading:last-child {
   margin-bottom: 0;
 }
