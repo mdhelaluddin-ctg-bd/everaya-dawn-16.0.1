@@ -98,7 +98,7 @@
             "intro_nowrap": false,
             "dates_size": 15,
             "dates_own_line": true,
-            "icon_size": 56,
+            "icon_size": 60,
             "cutoff_hour": 15,
             "minimum_days": 5,
             "maximum_days": 7,
