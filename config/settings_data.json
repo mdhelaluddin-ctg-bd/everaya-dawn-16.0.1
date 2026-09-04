@@ -52,7 +52,7 @@
     "card_free_shipping_tag_color": "#2eaa43",
     "card_show_discount_badge": true,
     "card_discount_badge_position": "top right",
-    "card_discount_badge_color": "#2eaa43",
+    "card_discount_badge_color": "#FF2626",
     "card_show_sale_badge": false,
     "card_title_font_size": 18,
     "card_free_shipping_style": "filled",
