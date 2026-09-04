@@ -10,11 +10,12 @@
   --delivery-accent: rgb(var(--color-foreground));
   --delivery-radius: 1rem;
 
-  /* Centred flex row: the icon + text group sits centred as a unit, with the
-     text block centre-aligned inside it. */
-  display: flex;
+  /* Two columns: the icon owns its own column that spans the full height of
+     the text stack, so it never reads as if it were glued to one text line. */
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   gap: 1.6rem;
   /* 1.6rem matches .product-trust / .product-trust-image; the tighter bottom
      gap keeps this and the expedited note reading as a pair. */
@@ -29,16 +30,25 @@
 
 .delivery-estimate__icon {
   display: grid;
-  flex: 0 0 auto;
+  align-self: stretch;
   width: var(--delivery-icon-size, 6rem);
-  height: var(--delivery-icon-size, 6rem);
   place-items: center;
   color: rgb(var(--color-foreground));
 }
 
-.delivery-estimate__icon svg {
+/* base.css pins every .svg-wrapper to 20px, which swallowed the merchant's
+   icon size setting entirely. */
+.delivery-estimate__icon .svg-wrapper {
   width: 100%;
-  height: 100%;
+  height: auto;
+}
+
+/* The `> svg` matches base.css's own selector so this wins on specificity.
+   The icons are not square (shipping-box is 32x24), so height follows the
+   viewBox rather than being stretched to fill a square. */
+.delivery-estimate__icon .svg-wrapper > svg {
+  width: 100%;
+  height: auto;
 }
 
 .delivery-estimate__content,
@@ -129,7 +139,6 @@
      Scaling keeps mobile proportionally smaller while still following it. */
   .delivery-estimate__icon {
     width: calc(var(--delivery-icon-size, 6rem) * 0.8);
-    height: calc(var(--delivery-icon-size, 6rem) * 0.8);
   }
 
   .expedited-shipping {
