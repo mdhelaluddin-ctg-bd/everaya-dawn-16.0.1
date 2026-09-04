@@ -51,6 +51,10 @@
   {%- capture delivery_style -%}
     {%- if block.settings.accent_color != blank %}--delivery-accent: {{ block.settings.accent_color }};{% endif -%}
     {%- if block.settings.background_color != blank %}--delivery-background: {{ block.settings.background_color }};{% endif -%}
+    --delivery-heading-size: {{ block.settings.heading_size | default: 15 | divided_by: 10.0 }}rem;
+    --delivery-intro-size: {{ block.settings.intro_size | default: 13 | divided_by: 10.0 }}rem;
+    --delivery-dates-size: {{ block.settings.dates_size | default: 13 | divided_by: 10.0 }}rem;
+    --delivery-icon-size: {{ block.settings.icon_size | default: 60 | divided_by: 10.0 }}rem;
   {%- endcapture -%}
   {% if delivery_style != blank %}style="{{ delivery_style }}"{% endif %}
   {{ block.shopify_attributes }}
@@ -61,14 +65,18 @@
     </span>
   {%- endif -%}
   <span class="delivery-estimate__content">
-    <strong class="delivery-estimate__heading inline-richtext">
+    <strong class="delivery-estimate__heading inline-richtext{% if block.settings.heading_nowrap %} delivery-estimate__heading--nowrap{% endif %}">
       {{- block.settings.heading -}}
     </strong>
     <span class="delivery-estimate__copy inline-richtext" aria-live="polite">
-      {{- block.settings.between_text }}
-      <time data-delivery-start>&hellip;</time>
-      {{ block.settings.and_text }}
-      <time data-delivery-end>&hellip;</time>.
+      <span class="delivery-estimate__intro{% if block.settings.intro_nowrap %} delivery-estimate__intro--nowrap{% endif %}">
+        {{- block.settings.between_text -}}
+      </span>
+      <span class="delivery-estimate__dates{% if block.settings.dates_own_line %} delivery-estimate__dates--block{% endif %}">
+        <time data-delivery-start>&hellip;</time>
+        {{ block.settings.and_text }}
+        <time data-delivery-end>&hellip;</time>.
+      </span>
     </span>
   </span>
 </delivery-estimate>
