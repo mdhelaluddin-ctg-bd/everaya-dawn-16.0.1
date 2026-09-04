@@ -676,6 +676,13 @@
         "default": "current_first"
       },
       {
+        "type": "checkbox",
+        "id": "card_show_from_price",
+        "default": true,
+        "label": "Show “From” before price",
+        "info": "When a product has multiple variant prices, show “From” before the starting price on product cards."
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.global.settings.header__border.content"
       },

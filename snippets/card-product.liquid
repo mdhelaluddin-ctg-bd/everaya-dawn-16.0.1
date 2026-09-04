@@ -264,7 +264,7 @@
               {%- endif -%}
 
               <div class="loox-rating" data-id="{{ card_product.id }}" data-rating="{{ card_product.metafields.loox.avg_rating }}" data-raters="{{ card_product.metafields.loox.num_reviews }}"></div>
-{% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+{% render 'price', product: card_product, price_class: '', show_compare_at_price: true, show_from_price: settings.card_show_from_price %}
               {%- if card_product.quantity_price_breaks_configured? -%}
                 {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                   {% liquid
@@ -572,7 +572,7 @@
                           <a href="{{ card_product.url }}" class="full-unstyled-link">
                             <h3>{{ card_product.title | escape }}</h3>
                           </a>
-                          {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+                          {% render 'price', product: card_product, price_class: '', show_compare_at_price: true, show_from_price: settings.card_show_from_price %}
                           {%- if card_product.quantity_price_breaks_configured? -%}
                             <div class="card__information-volume-pricing-note">
                               <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -587,7 +587,7 @@
                               {{ card_product.title | escape }}
                             </h3>
                           </a>
-                          {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+                          {% render 'price', product: card_product, price_class: '', show_compare_at_price: true, show_from_price: settings.card_show_from_price %}
                           {%- if card_product.quantity_price_breaks_configured? -%}
                             <div class="card__information-volume-pricing-note">
                               <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
