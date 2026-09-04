@@ -540,6 +540,24 @@
         "default": "scheme-2"
       },
       {
+        "type": "checkbox",
+        "id": "card_show_free_shipping_tag",
+        "default": true,
+        "label": "Show free shipping tag"
+      },
+      {
+        "type": "text",
+        "id": "card_free_shipping_tag_text",
+        "default": "Free shipping",
+        "label": "Free shipping tag text"
+      },
+      {
+        "type": "color",
+        "id": "card_free_shipping_tag_color",
+        "label": "Free shipping tag colour",
+        "default": "#2eaa43"
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.global.settings.header__border.content"
       },

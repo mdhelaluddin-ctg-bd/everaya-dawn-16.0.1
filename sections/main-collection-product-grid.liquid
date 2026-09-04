@@ -1,7 +1,6 @@
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
-{{ 'component-price-badges.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
@@ -177,9 +176,6 @@
                       show_secondary_image: section.settings.show_secondary_image,
                       show_vendor: section.settings.show_vendor,
                       show_rating: section.settings.show_rating,
-                      show_free_shipping_tag: section.settings.show_free_shipping_tag,
-                      free_shipping_tag_text: section.settings.free_shipping_tag_text,
-                      free_shipping_tag_color: section.settings.free_shipping_tag_color,
                       lazy_load: lazy_load,
                       skip_styles: skip_card_product_styles,
                       quick_add: section.settings.quick_add,
@@ -333,24 +329,6 @@
       "default": false,
       "label": "t:sections.main-collection-product-grid.settings.show_rating.label",
       "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_free_shipping_tag",
-      "default": false,
-      "label": "Show free shipping tag"
-    },
-    {
-      "type": "text",
-      "id": "free_shipping_tag_text",
-      "default": "Free shipping",
-      "label": "Free shipping tag text"
-    },
-    {
-      "type": "color",
-      "id": "free_shipping_tag_color",
-      "label": "Free shipping tag colour",
-      "default": "#2eaa43"
     },
     {
       "type": "select",

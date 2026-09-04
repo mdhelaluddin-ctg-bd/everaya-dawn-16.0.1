@@ -25,11 +25,15 @@
   {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
 
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price-badges.css' | asset_url | stylesheet_tag }}
   {{ 'quick-order-list.css' | asset_url | stylesheet_tag }}
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
 {%- if card_product and card_product != empty -%}
   {%- liquid
+    assign show_free_shipping_tag = settings.card_show_free_shipping_tag
+    assign free_shipping_tag_text = settings.card_free_shipping_tag_text
+    assign free_shipping_tag_color = settings.card_free_shipping_tag_color
     assign ratio = 1
     if card_product.featured_media and media_aspect_ratio == 'portrait'
       assign ratio = 0.8
