@@ -64,3 +64,25 @@
     font-size: var(--pdp-title-size, calc(var(--font-heading-scale) * 4rem));
   }
 }
+
+/* Variant media transition. Paired with assets/variant-media-transition.js.
+
+   The gallery hides inactive media with display:none, which cannot be
+   transitioned - so instead of trying to crossfade the items, the list itself
+   dims while the incoming image loads and restores once it has decoded.
+
+   Targets the media list, not .product__media-wrapper, so the thumbnail strip
+   stays put; fading that too reads as the whole column blinking. */
+[id^="MainProduct-"] .product__media-list {
+  transition: opacity 180ms ease;
+}
+
+[id^="MainProduct-"] .product__media-list.is-variant-loading {
+  opacity: 0.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [id^="MainProduct-"] .product__media-list {
+    transition: none;
+  }
+}
