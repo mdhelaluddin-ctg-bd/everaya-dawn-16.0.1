@@ -48,7 +48,7 @@
     },
     "featured_collection_T8yecb": {
       "type": "featured-collection",
-      "name": "Trending this week ",
+      "name": "Trending this week 🔥",
       "settings": {
         "collection": "trending-this-week-🔥",
         "products_to_show": 8,
@@ -77,13 +77,13 @@
     },
     "featured_collection": {
       "type": "featured-collection",
-      "name": "Featured products",
+      "name": "Featured Products 💎",
       "settings": {
         "collection": "all",
         "products_to_show": 8,
-        "title": "Featured products",
+        "title": "Featured Products 💎",
         "heading_size": "h1",
-        "description": "<p>Best Sellers – Everaya's most-gifted jewelry pieces</p>",
+        "description": "<p>A handpicked edit of pieces worth a second look.</p>",
         "show_description": false,
         "description_style": "body",
         "columns_desktop": 4,
