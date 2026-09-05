@@ -83,7 +83,7 @@
           >
             {%- for block in section.blocks -%}
               <div
-                class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if block.type == 'contact' %} footer-block--contact{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                class="footer-block grid__item{% if block.type == 'link_list' or block.type == 'link_column' or block.type == 'shop_policies' %} footer-block--menu{% endif %}{% if block.type == 'contact' %} footer-block--contact{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                 {{ block.shopify_attributes }}
                 {% if settings.animations_reveal_on_scroll %}
                   data-cascade
@@ -116,6 +116,84 @@
                         {%- endfor -%}
                       </ul>
                     {%- endif -%}
+                  {%- when 'link_column' -%}
+                    <ul class="footer-block__details-content list-unstyled">
+                      {%- if block.settings.link_1_label != blank -%}
+                        <li>
+                          <a
+                            href="{{ block.settings.link_1_url | default: '#' }}"
+                            class="link link--text list-menu__item list-menu__item--link"
+                          >
+                            {{ block.settings.link_1_label | escape }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.link_2_label != blank -%}
+                        <li>
+                          <a
+                            href="{{ block.settings.link_2_url | default: '#' }}"
+                            class="link link--text list-menu__item list-menu__item--link"
+                          >
+                            {{ block.settings.link_2_label | escape }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.link_3_label != blank -%}
+                        <li>
+                          <a
+                            href="{{ block.settings.link_3_url | default: '#' }}"
+                            class="link link--text list-menu__item list-menu__item--link"
+                          >
+                            {{ block.settings.link_3_label | escape }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.link_4_label != blank -%}
+                        <li>
+                          <a
+                            href="{{ block.settings.link_4_url | default: '#' }}"
+                            class="link link--text list-menu__item list-menu__item--link"
+                          >
+                            {{ block.settings.link_4_label | escape }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.link_5_label != blank -%}
+                        <li>
+                          <a
+                            href="{{ block.settings.link_5_url | default: '#' }}"
+                            class="link link--text list-menu__item list-menu__item--link"
+                          >
+                            {{ block.settings.link_5_label | escape }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.link_6_label != blank -%}
+                        <li>
+                          <a
+                            href="{{ block.settings.link_6_url | default: '#' }}"
+                            class="link link--text list-menu__item list-menu__item--link"
+                          >
+                            {{ block.settings.link_6_label | escape }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                  {%- when 'shop_policies' -%}
+                    <ul class="footer-block__details-content list-unstyled">
+                      {%- for policy in shop.policies -%}
+                        {%- if policy != blank -%}
+                          <li>
+                            <a
+                              href="{{ policy.url }}"
+                              class="link link--text list-menu__item list-menu__item--link"
+                            >
+                              {{ policy.title | escape }}
+                            </a>
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
                   {%- when 'contact' -%}
                     <div class="footer-block__details-content footer-block__contact">
                       {%- if block.settings.phone != blank -%}
@@ -568,6 +646,99 @@
           "default": false,
           "label": "Show social icons in this block",
           "info": "Usually leave off when social icons are shown in the newsletter row."
+        }
+      ]
+    },
+    {
+      "type": "link_column",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Quick links",
+          "label": "Heading"
+        },
+        {
+          "type": "header",
+          "content": "Links"
+        },
+        {
+          "type": "text",
+          "id": "link_1_label",
+          "label": "Link 1 label"
+        },
+        {
+          "type": "url",
+          "id": "link_1_url",
+          "label": "Link 1 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_2_label",
+          "label": "Link 2 label"
+        },
+        {
+          "type": "url",
+          "id": "link_2_url",
+          "label": "Link 2 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_3_label",
+          "label": "Link 3 label"
+        },
+        {
+          "type": "url",
+          "id": "link_3_url",
+          "label": "Link 3 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_4_label",
+          "label": "Link 4 label"
+        },
+        {
+          "type": "url",
+          "id": "link_4_url",
+          "label": "Link 4 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_5_label",
+          "label": "Link 5 label"
+        },
+        {
+          "type": "url",
+          "id": "link_5_url",
+          "label": "Link 5 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_6_label",
+          "label": "Link 6 label"
+        },
+        {
+          "type": "url",
+          "id": "link_6_url",
+          "label": "Link 6 URL"
+        }
+      ]
+    },
+    {
+      "type": "shop_policies",
+      "name": "Shop policies",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Policies",
+          "label": "Heading"
+        },
+        {
+          "type": "paragraph",
+          "content": "Shows your store’s published policy pages from Settings → Policies."
         }
       ]
     }

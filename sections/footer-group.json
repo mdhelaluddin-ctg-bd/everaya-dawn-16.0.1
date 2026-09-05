@@ -15,19 +15,43 @@
       "type": "footer",
       "blocks": {
         "footer_information": {
-          "type": "link_list",
+          "type": "link_column",
           "settings": {
-            "heading": "Information"
+            "heading": "Information",
+            "link_1_label": "Our Story",
+            "link_1_url": "/pages/our-story",
+            "link_2_label": "Track Order",
+            "link_2_url": "/pages/track-order",
+            "link_3_label": "Happy Customers",
+            "link_3_url": "/pages/reviews",
+            "link_4_label": "Interesting Blogs",
+            "link_4_url": "/blogs/news",
+            "link_5_label": "",
+            "link_5_url": "",
+            "link_6_label": "",
+            "link_6_url": ""
           }
         },
         "footer_help": {
-          "type": "link_list",
+          "type": "link_column",
           "settings": {
-            "heading": "Help"
+            "heading": "Help",
+            "link_1_label": "Track My Order",
+            "link_1_url": "/pages/track-order",
+            "link_2_label": "FAQs",
+            "link_2_url": "/pages/faq",
+            "link_3_label": "Jewelry Care Instructions",
+            "link_3_url": "/pages/jewelry-care",
+            "link_4_label": "Contact Us",
+            "link_4_url": "/pages/contact",
+            "link_5_label": "",
+            "link_5_url": "",
+            "link_6_label": "",
+            "link_6_url": ""
           }
         },
         "footer_policies": {
-          "type": "link_list",
+          "type": "shop_policies",
           "settings": {
             "heading": "Policies"
           }
@@ -36,10 +60,10 @@
           "type": "contact",
           "settings": {
             "heading": "Connect with us",
-            "phone": "",
-            "email": "",
-            "hours": "",
-            "address": "",
+            "phone": "+1 (000) 000-0000",
+            "email": "support@everaya.com",
+            "hours": "Monday - Friday 9am - 5pm",
+            "address": "Everaya\nUnited States",
             "show_social_in_block": false
           }
         }
