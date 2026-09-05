@@ -112,7 +112,7 @@
         "products_to_show": 4,
         "title": "Best Sellers 👑",
         "heading_size": "h1",
-        "description": "",
+        "description": "<p>Our most-gifted pieces, chosen again and again.</p>",
         "show_description": false,
         "description_style": "body",
         "columns_desktop": 4,
