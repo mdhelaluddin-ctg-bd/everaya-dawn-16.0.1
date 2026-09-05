@@ -30,7 +30,7 @@
     "main": {
       "type": "main-page",
       "settings": {
-        "content_width": "narrow",
+        "content_width": "page",
         "padding_top": 36,
         "padding_bottom": 36
       }
