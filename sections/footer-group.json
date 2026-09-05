@@ -20,24 +20,6 @@
             "heading": "Information",
             "link_1_label": "Our Story",
             "link_1_url": "/pages/our-story",
-            "link_2_label": "Track Order",
-            "link_2_url": "/pages/track-order",
-            "link_3_label": "Happy Customers",
-            "link_3_url": "/pages/reviews",
-            "link_4_label": "Interesting Blogs",
-            "link_4_url": "/blogs/news",
-            "link_5_label": "",
-            "link_5_url": "",
-            "link_6_label": "",
-            "link_6_url": ""
-          }
-        },
-        "footer_help": {
-          "type": "link_column",
-          "settings": {
-            "heading": "Help",
-            "link_1_label": "",
-            "link_1_url": "#",
             "link_2_label": "FAQs",
             "link_2_url": "shopify://pages/frequently-asked-questions",
             "link_3_label": "Jewelry Care Instructions",
@@ -70,7 +52,6 @@
       },
       "block_order": [
         "footer_information",
-        "footer_help",
         "footer_policies",
         "footer_contact"
       ],
