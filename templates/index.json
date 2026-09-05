@@ -12,24 +12,6 @@
     "slideshow_fQN3jV": {
       "type": "slideshow",
       "blocks": {
-        "slide_8QYE8G": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Codex_Image_Sep_6_2026_03_19_33_AM.png",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
-          }
-        },
         "slide_GHrWVY": {
           "type": "slide",
           "settings": {
@@ -68,7 +50,6 @@
         }
       },
       "block_order": [
-        "slide_8QYE8G",
         "slide_GHrWVY",
         "slide_enWR7H"
       ],
@@ -78,11 +59,11 @@
       "name": "t:sections.slideshow.presets.name",
       "settings": {
         "layout": "full_bleed",
-        "slide_height": "medium",
+        "slide_height": "large",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 5,
-        "image_behavior": "none",
+        "image_behavior": "ambient",
         "show_text_below": true,
         "accessibility_info": "Slideshow about our brand"
       }
