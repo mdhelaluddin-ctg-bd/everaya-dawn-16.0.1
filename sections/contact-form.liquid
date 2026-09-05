@@ -39,7 +39,7 @@
     {%- endif -%}
 
     <contact-form-ajax>
-      {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+      {%- form 'contact', id: 'ContactForm', class: contact_form_class, data-shopify-captcha: 'true' -%}
         {%- if form.posted_successfully? -%}
           <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
             {{- 'icon-success.svg' | inline_asset_content -}}
@@ -121,7 +121,6 @@
             class="field__input contact__input"
             autocomplete="tel"
             name="contact[{{ 'templates.contact.form.phone' | t }}]"
-            pattern="[0-9\-]*"
             value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
             placeholder="{{ section.settings.placeholder_phone | escape }}"
           >

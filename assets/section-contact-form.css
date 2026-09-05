@@ -199,7 +199,7 @@
 
 /* Confirmation dialog */
 .contact-confirm-dialog {
-  position: fixed;
+  position: relative;
   width: calc(100% - 3.2rem);
   max-width: 42rem;
   margin: auto;
