@@ -1,13 +1,15 @@
 /**
  * Contact form: loader on Send → confirmation dialog.
  *
- * Shopify contact + hCaptcha:
- * - Body must be application/x-www-form-urlencoded (not multipart FormData).
- * - Strip #ContactForm from the fetch URL.
- * - Call Shopify.captcha.protect() before POST so h-captcha-response is present.
- * - Never HTMLFormElement.prototype.submit() without a captcha token on the form.
- * - After we stopImmediatePropagation, do not rely on requestSubmit() — captcha
- *   bootstrap may preventDefault on unbound forms and leave the UI stuck.
+ * Shopify spam protection (hCaptcha) injects h-captcha-response only during a real
+ * form submit — Shopify.captcha.protect()'s callback fires when the form is *bound*,
+ * not when a token exists. So a fetch() POST can never carry a valid token and
+ * Shopify answers 400 "Missing CAPTCHA token".
+ *
+ * Therefore:
+ * - Captcha enabled  → let the native submit run, keep the loader on, and open the
+ *   dialog when the page comes back with ?contact_posted=true.
+ * - Captcha disabled → POST via fetch (urlencoded) and open the dialog, no reload.
  */
 class ContactFormAjax extends HTMLElement {
   connectedCallback() {
@@ -24,26 +26,30 @@ class ContactFormAjax extends HTMLElement {
     this.closeDialog = this.closeDialog.bind(this);
     this.onDialogClosed = this.onDialogClosed.bind(this);
 
-    this.form.addEventListener('submit', this.onSubmit, true);
+    this.form.addEventListener('submit', this.onSubmit);
     this.querySelectorAll('[data-contact-confirm-close]').forEach((el) => {
       el.addEventListener('click', this.closeDialog);
     });
     this.dialog.addEventListener('close', this.onDialogClosed);
 
+    // Clear the loader if the customer returns via the back button.
+    window.addEventListener('pageshow', () => this.setLoading(false));
+
     this.openDialogIfPosted();
   }
 
   disconnectedCallback() {
-    if (this.form) this.form.removeEventListener('submit', this.onSubmit, true);
+    if (this.form) this.form.removeEventListener('submit', this.onSubmit);
+  }
+
+  get captchaEnabled() {
+    return Boolean(window.Shopify && window.Shopify.captcha) && this.form.dataset.shopifyCaptcha === 'true';
   }
 
   openDialogIfPosted() {
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get('contact_posted') !== 'true') return;
-
-      const inlineStatus = this.querySelector('.contact__server-success');
-      if (inlineStatus) inlineStatus.hidden = true;
 
       this.openDialog();
 
@@ -56,89 +62,52 @@ class ContactFormAjax extends HTMLElement {
   }
 
   onSubmit(event) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-
-    if (this.submitting) return;
-
-    if (typeof this.form.reportValidity === 'function' && !this.form.reportValidity()) {
+    if (this.submitting) {
+      event.preventDefault();
       return;
     }
 
-    this.submitting = true;
+    if (typeof this.form.reportValidity === 'function' && !this.form.reportValidity()) {
+      event.preventDefault();
+      return;
+    }
+
     this.clearError();
+    this.submitting = true;
+
+    if (this.captchaEnabled) {
+      // Let Shopify's captcha handlers own the submit. Show the loader and keep the
+      // button enabled — disabling it here would drop it from the POST.
+      this.setLoading(true, { keepEnabled: true });
+      return;
+    }
+
+    event.preventDefault();
     this.setLoading(true);
-
-    const start = () => {
-      this.attemptSubmit();
-    };
-
-    if (window.Shopify && window.Shopify.captcha && typeof window.Shopify.captcha.protect === 'function') {
-      try {
-        window.Shopify.captcha.protect(this.form, start);
-        return;
-      } catch (error) {
-        // Fall through
-      }
-    }
-
-    start();
+    this.postAjax();
   }
 
-  async attemptSubmit() {
+  async postAjax() {
     try {
-      const captchaEnabled = Boolean(window.Shopify && window.Shopify.captcha);
+      const response = await fetch(this.getActionUrl(), {
+        method: 'POST',
+        body: this.buildUrlEncodedBody(),
+        credentials: 'same-origin',
+      });
 
-      if (captchaEnabled) {
-        await this.waitForCaptchaToken(2000);
+      if (!response.ok) {
+        throw new Error(`Contact form failed with status ${response.status}`);
       }
 
-      const body = this.buildUrlEncodedBody();
-      const hasToken = this.hasCaptchaToken(body);
-
-      if (captchaEnabled && !hasToken) {
-        this.fail('Could not verify the form. Please refresh the page and try again.');
-        return;
-      }
-
-      const ok = await this.postAjax(body);
-      if (ok) {
-        this.form.reset();
-        this.submitting = false;
-        this.setLoading(false);
-        this.openDialog();
-        return;
-      }
-
-      // AJAX rejected — token is on the form, so a full native POST is safe.
-      this.submitWithToken();
+      this.form.reset();
+      this.submitting = false;
+      this.setLoading(false);
+      this.openDialog();
     } catch (error) {
-      this.fail('Something went wrong sending your message. Please try again in a moment.');
+      this.submitting = false;
+      this.setLoading(false);
+      this.showError('Something went wrong sending your message. Please try again in a moment.');
     }
-  }
-
-  fail(message) {
-    this.submitting = false;
-    this.setLoading(false);
-    this.showError(message);
-  }
-
-  waitForCaptchaToken(timeoutMs) {
-    if (this.hasCaptchaToken(this.buildUrlEncodedBody())) {
-      return Promise.resolve();
-    }
-
-    return new Promise((resolve) => {
-      const started = Date.now();
-      const tick = () => {
-        if (this.hasCaptchaToken(this.buildUrlEncodedBody()) || Date.now() - started >= timeoutMs) {
-          resolve();
-          return;
-        }
-        window.setTimeout(tick, 50);
-      };
-      tick();
-    });
   }
 
   getActionUrl() {
@@ -146,74 +115,24 @@ class ContactFormAjax extends HTMLElement {
     return action.split('#')[0];
   }
 
+  /** Shopify's contact endpoint expects a normal urlencoded POST, not multipart. */
   buildUrlEncodedBody() {
     const params = new URLSearchParams();
-    const formData = new FormData(this.form);
 
-    formData.forEach((value, key) => {
-      if (typeof value === 'string') {
-        params.append(key, value);
-      }
+    new FormData(this.form).forEach((value, key) => {
+      if (typeof value === 'string') params.append(key, value);
     });
 
     return params;
   }
 
-  hasCaptchaToken(params) {
-    const keys = ['h-captcha-response', 'g-recaptcha-response', 'recaptcha-v3-token'];
-    return keys.some((key) => {
-      const value = params.get(key);
-      return typeof value === 'string' && value.trim().length > 0;
-    });
-  }
-
-  async postAjax(body) {
-    const response = await fetch(this.getActionUrl(), {
-      method: 'POST',
-      body,
-      credentials: 'same-origin',
-    });
-
-    if (response.status === 400 || response.status === 429) {
-      return false;
-    }
-
-    if (!response.ok) {
-      return false;
-    }
-
-    const url = response.url || '';
-    if (url.includes('contact_posted=true')) {
-      return true;
-    }
-
-    let text = '';
-    try {
-      text = await response.text();
-    } catch (error) {
-      text = '';
-    }
-
-    if (/missing captcha token/i.test(text)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  submitWithToken() {
-    // Keep loader on while the browser navigates to ?contact_posted=true.
-    this.submitButton.classList.add('loading');
-    this.submitButton.setAttribute('aria-busy', 'true');
-    if (this.spinner) this.spinner.classList.remove('hidden');
-
-    HTMLFormElement.prototype.submit.call(this.form);
-  }
-
-  setLoading(isLoading) {
+  setLoading(isLoading, { keepEnabled = false } = {}) {
     this.submitButton.classList.toggle('loading', isLoading);
-    this.submitButton.disabled = isLoading;
     this.submitButton.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+
+    if (!keepEnabled) {
+      this.submitButton.disabled = isLoading;
+    }
 
     if (this.spinner) {
       this.spinner.classList.toggle('hidden', !isLoading);
@@ -244,11 +163,9 @@ class ContactFormAjax extends HTMLElement {
   }
 
   onDialogClosed() {
-    if (this.submitButton) {
-      this.submitButton.disabled = false;
-      this.setLoading(false);
-      this.submitButton.focus();
-    }
+    this.submitting = false;
+    this.setLoading(false);
+    this.submitButton.focus();
   }
 
   showError(message) {
