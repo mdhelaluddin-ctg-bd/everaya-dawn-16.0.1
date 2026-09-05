@@ -281,35 +281,6 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
-    {% style %}
-      .shopify-policy__container {
-        max-width: var(--page-width);
-        width: 100%;
-        margin-top: {{ settings.policy_margin_top | default: 0 }}px;
-        margin-bottom: {{ settings.policy_margin_bottom | default: 0 }}px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: {{ settings.policy_padding_top | default: 36 }}px;
-        padding-bottom: {{ settings.policy_padding_bottom | default: 36 }}px;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        text-align: left;
-        box-sizing: border-box;
-      }
-
-      .shopify-policy__title,
-      .shopify-policy__body {
-        text-align: left;
-      }
-
-      @media screen and (min-width: 750px) {
-        .shopify-policy__container {
-          padding-left: 5rem;
-          padding-right: 5rem;
-        }
-      }
-    {% endstyle %}
-
     {%- if settings.cart_type == 'drawer' -%}
       {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
       {{ 'component-cart.css' | asset_url | stylesheet_tag }}
@@ -370,6 +341,46 @@
     >
       {{ content_for_layout }}
     </main>
+
+    {% style %}
+      /* Beat Shopify policy.css + inline policy HTML wrappers so title/body share one column */
+      #MainContent .shopify-policy__container {
+        max-width: var(--page-width);
+        width: 100%;
+        margin-top: {{ settings.policy_margin_top | default: 0 }}px;
+        margin-bottom: {{ settings.policy_margin_bottom | default: 0 }}px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: {{ settings.policy_padding_top | default: 36 }}px;
+        padding-bottom: {{ settings.policy_padding_bottom | default: 36 }}px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        text-align: left;
+        box-sizing: border-box;
+      }
+
+      #MainContent .shopify-policy__title,
+      #MainContent .shopify-policy__title h1,
+      #MainContent .shopify-policy__body,
+      #MainContent .shopify-policy__body .rte,
+      #MainContent .shopify-policy__body .rte > div {
+        max-width: 100% !important;
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: left !important;
+        box-sizing: border-box;
+      }
+
+      @media screen and (min-width: 750px) {
+        #MainContent .shopify-policy__container {
+          padding-left: 5rem;
+          padding-right: 5rem;
+        }
+      }
+    {% endstyle %}
 
     {% sections 'footer-group' %}
 
