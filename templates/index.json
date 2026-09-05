@@ -15,7 +15,7 @@
         "slide_GHrWVY": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/WEB_Version.jpg",
+            "image": "shopify://shop_images/Artboard_3.jpg",
             "image_overlay_opacity": 0,
             "heading": "",
             "heading_size": "h1",
@@ -29,10 +29,29 @@
             "text_alignment_mobile": "center",
             "color_scheme": "scheme-1"
           }
+        },
+        "slide_enWR7H": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Artboard_1.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
         }
       },
       "block_order": [
-        "slide_GHrWVY"
+        "slide_GHrWVY",
+        "slide_enWR7H"
       ],
       "custom_css": [
         "@media screen and (max-width: 749px) {slideshow-component {display: none; }}"
@@ -55,7 +74,7 @@
         "slide_xpRAP4": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Mobile_Version.jpg",
+            "image": "shopify://shop_images/Artboard_2_copy.jpg",
             "image_overlay_opacity": 0,
             "heading": "",
             "heading_size": "h1",
@@ -69,10 +88,29 @@
             "text_alignment_mobile": "center",
             "color_scheme": ""
           }
+        },
+        "slide_fCFyAz": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Artboard_2.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
         }
       },
       "block_order": [
-        "slide_xpRAP4"
+        "slide_xpRAP4",
+        "slide_fCFyAz"
       ],
       "custom_css": [
         "@media screen and (min-width: 750px) {slideshow-component {display: none; }}"
