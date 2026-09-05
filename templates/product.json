@@ -78,7 +78,7 @@
         "trust_image_XWzDiH": {
           "type": "trust_image",
           "settings": {
-            "image": "shopify://shop_images/Updated_JUNE_2026_-_Product_Page_-_1_large_d60391c9-639a-4dd0-95ff-e145b0b7e350.avif",
+            "image": "shopify://shop_images/benefits.webp",
             "max_width": 100,
             "alignment": "center"
           }
