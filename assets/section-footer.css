@@ -193,7 +193,13 @@
 }
 
 .footer-block--contact .footer__list-social {
-  margin-top: 1.6rem;
+  margin-top: 2.4rem;
+  justify-content: flex-start;
+}
+
+.footer-block--contact .footer__list-social .list-social__link {
+  padding-left: 0;
+  padding-right: 1.2rem;
 }
 
 /* Newsletter left / social right */

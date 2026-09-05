@@ -46,7 +46,7 @@
             "email": "support@everaya.com",
             "hours": "Monday - Friday (9AM to 5PM EST)",
             "address": "Orlando, Florida, United States",
-            "show_social_in_block": false
+            "show_social_in_block": true
           }
         }
       },
@@ -65,7 +65,7 @@
         "newsletter_enable": true,
         "newsletter_heading": "Become a VIP",
         "enable_follow_on_shop": false,
-        "show_social": true,
+        "show_social": false,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,
