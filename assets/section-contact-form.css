@@ -46,16 +46,6 @@
   }
 }
 
-.contact__ajax-error {
-  margin: 1.2rem 0 0;
-  color: rgb(var(--color-foreground));
-  font-size: 1.4rem;
-}
-
-.contact__ajax-error[hidden] {
-  display: none;
-}
-
 /* Editorial form — outlined fields + matching send button */
 .contact--editorial .contact__label {
   display: block;
