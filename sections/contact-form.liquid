@@ -14,21 +14,29 @@
   }
 {%- endstyle -%}
 
+{%- liquid
+  if section.settings.content_width == 'page'
+    assign contact_layout_class = 'page-width'
+  else
+    assign contact_layout_class = 'page-width page-width--narrow'
+  endif
+
+  assign contact_form_class = 'contact__form isolate'
+  if settings.animations_reveal_on_scroll
+    assign contact_form_class = 'contact__form isolate scroll-trigger animate--slide-in'
+  endif
+-%}
+
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="contact page-width page-width--narrow section-{{ section.id }}-padding">
+  <div class="contact contact--editorial {{ contact_layout_class }} section-{{ section.id }}-padding">
     {%- if section.settings.heading != blank -%}
-      <h2 class="title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <h2 class="contact__heading title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         {{ section.settings.heading }}
       </h2>
     {%- else -%}
       <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
     {%- endif -%}
-    {%- liquid
-      assign contact_form_class = 'isolate'
-      if settings.animations_reveal_on_scroll
-        assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
-      endif
-    -%}
+
     {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
       {%- if form.posted_successfully? -%}
         <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
@@ -51,25 +59,31 @@
           </li>
         </ul>
       {%- endif -%}
+
       <div class="contact__fields">
-        <div class="field">
+        <div class="contact__field field">
+          <label class="contact__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
           <input
-            class="field__input"
+            class="field__input contact__input"
             autocomplete="name"
             type="text"
             id="ContactForm-name"
             name="contact[{{ 'templates.contact.form.name' | t }}]"
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-            placeholder="{{ 'templates.contact.form.name' | t }}"
+            placeholder=" "
           >
-          <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
         </div>
-        <div class="field field--with-error">
+
+        <div class="contact__field field field--with-error">
+          <label class="contact__label" for="ContactForm-email">
+            {{- 'templates.contact.form.email' | t -}}
+            <span aria-hidden="true">*</span>
+          </label>
           <input
             autocomplete="email"
             type="email"
             id="ContactForm-email"
-            class="field__input"
+            class="field__input contact__input"
             name="contact[email]"
             spellcheck="false"
             autocapitalize="off"
@@ -79,11 +93,7 @@
               aria-invalid="true"
               aria-describedby="ContactForm-email-error"
             {% endif %}
-            placeholder="{{ 'templates.contact.form.email' | t }}"
-          >
-          <label class="field__label" for="ContactForm-email">
-            {{- 'templates.contact.form.email' | t }}
-            <span aria-hidden="true">*</span></label
+            placeholder=" "
           >
           {%- if form.errors contains 'email' -%}
             <small class="contact__field-error" id="ContactForm-email-error">
@@ -99,33 +109,32 @@
           {%- endif -%}
         </div>
       </div>
-      <div class="field">
+
+      <div class="contact__field field">
+        <label class="contact__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
         <input
           type="tel"
           id="ContactForm-phone"
-          class="field__input"
+          class="field__input contact__input"
           autocomplete="tel"
           name="contact[{{ 'templates.contact.form.phone' | t }}]"
           pattern="[0-9\-]*"
           value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-          placeholder="{{ 'templates.contact.form.phone' | t }}"
+          placeholder=" "
         >
-        <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
       </div>
-      <div class="field">
+
+      <div class="contact__field field">
+        <label class="contact__label" for="ContactForm-body">{{ 'templates.contact.form.comment' | t }}</label>
         <textarea
-          rows="10"
+          rows="6"
           id="ContactForm-body"
-          class="text-area field__input"
+          class="text-area field__input contact__input contact__input--textarea"
           name="contact[{{ 'templates.contact.form.comment' | t }}]"
-          placeholder="{{ 'templates.contact.form.comment' | t }}"
-        >
-          {{- form.body -}}
-        </textarea>
-        <label class="form__label field__label" for="ContactForm-body">
-          {{- 'templates.contact.form.comment' | t -}}
-        </label>
+          placeholder=" "
+        >{{- form.body -}}</textarea>
       </div>
+
       <div class="contact__button">
         <button type="submit" class="button">
           {{ 'templates.contact.form.send' | t }}
@@ -177,6 +186,22 @@
       ],
       "default": "h1",
       "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Page layout width",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "default": "narrow"
     },
     {
       "type": "color_scheme",
