@@ -70,7 +70,7 @@
             id="ContactForm-name"
             name="contact[{{ 'templates.contact.form.name' | t }}]"
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-            placeholder=" "
+            placeholder="{{ section.settings.placeholder_name | escape }}"
           >
         </div>
 
@@ -93,7 +93,7 @@
               aria-invalid="true"
               aria-describedby="ContactForm-email-error"
             {% endif %}
-            placeholder=" "
+            placeholder="{{ section.settings.placeholder_email | escape }}"
           >
           {%- if form.errors contains 'email' -%}
             <small class="contact__field-error" id="ContactForm-email-error">
@@ -120,7 +120,7 @@
           name="contact[{{ 'templates.contact.form.phone' | t }}]"
           pattern="[0-9\-]*"
           value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-          placeholder=" "
+          placeholder="{{ section.settings.placeholder_phone | escape }}"
         >
       </div>
 
@@ -131,7 +131,7 @@
           id="ContactForm-body"
           class="text-area field__input contact__input contact__input--textarea"
           name="contact[{{ 'templates.contact.form.comment' | t }}]"
-          placeholder=" "
+          placeholder="{{ section.settings.placeholder_comment | escape }}"
         >{{- form.body -}}</textarea>
       </div>
 
@@ -208,6 +208,34 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Placeholders"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_name",
+      "label": "Name placeholder",
+      "default": "e.g. Jane Smith"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_email",
+      "label": "Email placeholder",
+      "default": "e.g. jane@email.com"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_phone",
+      "label": "Phone placeholder",
+      "default": "e.g. +1 (321) 555-0123"
+    },
+    {
+      "type": "textarea",
+      "id": "placeholder_comment",
+      "label": "Message placeholder",
+      "default": "e.g. Order #1234 — I’d like to update my shipping address…"
     },
     {
       "type": "header",

@@ -111,8 +111,8 @@
 }
 
 .contact--editorial .contact__input::placeholder {
-  color: transparent;
-  opacity: 0;
+  color: rgba(var(--color-foreground), 0.4);
+  opacity: 1;
 }
 
 .contact--editorial .contact__field-error {

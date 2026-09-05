@@ -42,6 +42,10 @@
         "heading_size": "h1",
         "content_width": "page",
         "color_scheme": "scheme-1",
+        "placeholder_name": "e.g. Jane Smith",
+        "placeholder_email": "e.g. jane@email.com",
+        "placeholder_phone": "e.g. +1 (321) 555-0123",
+        "placeholder_comment": "e.g. Order #1234 — I’d like to update my shipping address…",
         "padding_top": 36,
         "padding_bottom": 36
       }
