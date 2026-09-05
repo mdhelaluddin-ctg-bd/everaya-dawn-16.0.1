@@ -46,6 +46,9 @@
         "placeholder_email": "e.g. jane@email.com",
         "placeholder_phone": "e.g. +1 (321) 555-0123",
         "placeholder_comment": "e.g. Order #1234 — I’d like to update my shipping address…",
+        "confirm_title": "Thank you for writing in",
+        "confirm_message": "We received your note, and a real person on our small team will read it soon. Most replies go out within one business day — we’re glad you reached out.",
+        "confirm_ok_label": "OK",
         "padding_top": 36,
         "padding_bottom": 36
       }
