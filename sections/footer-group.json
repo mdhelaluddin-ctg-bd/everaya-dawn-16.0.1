@@ -60,10 +60,10 @@
           "type": "contact",
           "settings": {
             "heading": "Connect with us",
-            "phone": "+1 (000) 000-0000",
+            "phone": "+1 (321) 315-3031",
             "email": "support@everaya.com",
-            "hours": "Monday - Friday 9am - 5pm",
-            "address": "Everaya\nUnited States",
+            "hours": "Monday - Friday (9AM to 5PM EST)",
+            "address": "Orlando, Florida, United States",
             "show_social_in_block": false
           }
         }
