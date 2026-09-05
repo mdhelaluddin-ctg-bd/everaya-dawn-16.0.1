@@ -10,10 +10,10 @@
  * Flow: Send → loader → native POST → back on ?contact_posted=true → dialog.
  *
  * `form.posted_successfully?` is page-global in Liquid, so it also fires for the
- * footer newsletter form. The `contact_posted` param is form-specific, so it is
- * used both to open the dialog and to suppress that cross-talk.
+ * footer newsletter form. `contact_posted` is specific to this form, so the inline
+ * banner stays hidden unless the dialog can't be opened.
  */
-const SUBMIT_TIMEOUT = 15000;
+const CONTACT_SUBMIT_TIMEOUT = 15000;
 
 class ContactFormConfirmation extends HTMLElement {
   connectedCallback() {
@@ -29,6 +29,7 @@ class ContactFormConfirmation extends HTMLElement {
     this.onSubmit = this.onSubmit.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.onDialogClosed = this.onDialogClosed.bind(this);
+    this.onBackdropClick = this.onBackdropClick.bind(this);
     this.reset = this.reset.bind(this);
 
     this.form.addEventListener('submit', this.onSubmit);
@@ -36,9 +37,7 @@ class ContactFormConfirmation extends HTMLElement {
       el.addEventListener('click', this.closeDialog);
     });
     this.dialog.addEventListener('close', this.onDialogClosed);
-    this.dialog.addEventListener('click', (event) => {
-      if (event.target === this.dialog) this.closeDialog();
-    });
+    this.dialog.addEventListener('click', this.onBackdropClick);
 
     // Restore the button if the customer returns via the back/forward cache.
     window.addEventListener('pageshow', this.reset);
@@ -47,7 +46,9 @@ class ContactFormConfirmation extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (this.form) this.form.removeEventListener('submit', this.onSubmit);
+    if (!this.form) return;
+
+    this.form.removeEventListener('submit', this.onSubmit);
     window.removeEventListener('pageshow', this.reset);
     window.clearTimeout(this.timeout);
   }
@@ -61,15 +62,17 @@ class ContactFormConfirmation extends HTMLElement {
   }
 
   showConfirmation() {
-    if (!this.serverSuccess) return;
+    // The banner is only rendered when Shopify reports a successful post, and
+    // `contact_posted` confirms it was this form rather than the footer newsletter.
+    // Both are required, so a shared ?contact_posted=true URL can't fake it.
+    if (!this.serverSuccess || !this.posted) return;
 
-    // The dialog replaces the inline banner, which stays in the markup as the
-    // no-JS fallback. Hide it either way: if this POST wasn't ours, it's cross-talk.
-    this.serverSuccess.hidden = true;
-
-    if (!this.posted) return;
-
-    this.openDialog();
+    // Reveal the inline banner only if the dialog is unavailable, so the customer
+    // always gets confirmation of some kind.
+    if (!this.openDialog()) {
+      this.serverSuccess.hidden = false;
+      this.serverSuccess.focus();
+    }
 
     if (window.history && window.history.replaceState) {
       window.history.replaceState({}, '', `${window.location.pathname}#ContactForm`);
@@ -77,12 +80,8 @@ class ContactFormConfirmation extends HTMLElement {
   }
 
   onSubmit(event) {
+    // Shopify's CAPTCHA handlers own the submit itself; only reflect its state here.
     if (this.submitting) {
-      event.preventDefault();
-      return;
-    }
-
-    if (typeof this.form.reportValidity === 'function' && !this.form.reportValidity()) {
       event.preventDefault();
       return;
     }
@@ -98,7 +97,7 @@ class ContactFormConfirmation extends HTMLElement {
 
     // If a visible CAPTCHA challenge appears and the customer dismisses it, the
     // page never navigates — don't leave the button spinning forever.
-    this.timeout = window.setTimeout(this.reset, SUBMIT_TIMEOUT);
+    this.timeout = window.setTimeout(this.reset, CONTACT_SUBMIT_TIMEOUT);
   }
 
   reset() {
@@ -115,31 +114,32 @@ class ContactFormConfirmation extends HTMLElement {
     if (this.spinner) this.spinner.classList.toggle('hidden', !isLoading);
   }
 
+  /** @returns {boolean} whether the modal was opened. */
   openDialog() {
-    if (typeof this.dialog.showModal === 'function') {
+    try {
+      if (typeof this.dialog.showModal !== 'function') return false;
       if (!this.dialog.open) this.dialog.showModal();
-    } else {
-      this.dialog.setAttribute('open', '');
+    } catch (error) {
+      return false;
     }
 
     const focusTarget =
       this.dialog.querySelector('.contact-confirm-dialog__ok') ||
       this.dialog.querySelector('[data-contact-confirm-close]');
     if (focusTarget) focusTarget.focus();
+
+    return true;
   }
 
-  closeDialog(event) {
-    if (event) event.preventDefault();
+  closeDialog() {
+    this.dialog.close();
+  }
 
-    if (typeof this.dialog.close === 'function') {
-      this.dialog.close();
-    } else {
-      this.dialog.removeAttribute('open');
-    }
+  onBackdropClick(event) {
+    if (event.target === this.dialog) this.closeDialog();
   }
 
   onDialogClosed() {
-    this.reset();
     this.submitButton.focus();
   }
 }

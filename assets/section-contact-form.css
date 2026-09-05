@@ -188,6 +188,13 @@
 }
 
 /* Confirmation dialog */
+
+/* Browsers without <dialog> support lack the UA display:none, which would render
+   the confirmation inline on page load. */
+.contact-confirm-dialog:not([open]) {
+  display: none;
+}
+
 .contact-confirm-dialog {
   position: relative;
   width: calc(100% - 3.2rem);

@@ -42,12 +42,23 @@
       {%- form 'contact', id: 'ContactForm', class: contact_form_class, data-shopify-captcha: 'true' -%}
         {%- if form.posted_successfully? -%}
           {%- comment -%}
-            No-JS fallback. With JS, contact-form.js hides this and opens the
-            confirmation dialog instead.
+            The confirmation dialog is the primary success state. This banner starts
+            hidden so it never flashes before the dialog opens; contact-form.js
+            reveals it only if the dialog can't be opened.
           {%- endcomment -%}
-          <h2 class="form-status form-status-list form__message contact__server-success" tabindex="-1">
+          {%- capture contact_success_message -%}
             {{- 'icon-success.svg' | inline_asset_content -}}
             {{ 'templates.contact.form.post_success' | t }}
+          {%- endcapture -%}
+          <noscript>
+            <h2 class="form-status form-status-list form__message">{{ contact_success_message }}</h2>
+          </noscript>
+          <h2
+            class="form-status form-status-list form__message contact__server-success"
+            tabindex="-1"
+            hidden
+          >
+            {{- contact_success_message -}}
           </h2>
         {%- elsif form.errors -%}
           <div class="form__message">
@@ -149,7 +160,11 @@
         </div>
       {%- endform -%}
 
-      <dialog class="contact-confirm-dialog" aria-labelledby="ContactConfirmTitle-{{ section.id }}">
+      <dialog
+        class="contact-confirm-dialog"
+        aria-labelledby="ContactConfirmTitle-{{ section.id }}"
+        aria-describedby="ContactConfirmMessage-{{ section.id }}"
+      >
         <button
           type="button"
           class="contact-confirm-dialog__close"
@@ -164,7 +179,7 @@
           <h2 class="contact-confirm-dialog__title" id="ContactConfirmTitle-{{ section.id }}">
             {{ section.settings.confirm_title | escape }}
           </h2>
-          <p class="contact-confirm-dialog__message">
+          <p class="contact-confirm-dialog__message" id="ContactConfirmMessage-{{ section.id }}">
             {{ section.settings.confirm_message | escape | newline_to_br }}
           </p>
           <button type="button" class="button contact-confirm-dialog__ok contact__submit" data-contact-confirm-close>
