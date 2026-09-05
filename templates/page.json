@@ -11,6 +11,7 @@
   "sections": {
     "image_banner_9PXHYb": {
       "type": "image-banner",
+      "disabled": true,
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/everaya-story-banner.png",
