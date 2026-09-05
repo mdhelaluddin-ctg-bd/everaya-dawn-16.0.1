@@ -41,7 +41,7 @@
         "footer_contact": {
           "type": "contact",
           "settings": {
-            "heading": "Connect with us",
+            "heading": "<strong>Connect with us</strong>",
             "phone": "+1 (321) 315-3031",
             "email": "support@everaya.com",
             "hours": "Monday - Friday (9AM to 5PM EST)",
