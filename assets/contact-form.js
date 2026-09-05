@@ -14,7 +14,7 @@ class ContactFormAjax extends HTMLElement {
     this.closeDialog = this.closeDialog.bind(this);
     this.onDialogClosed = this.onDialogClosed.bind(this);
 
-    // Capture phase so we beat hCaptcha / other submit handlers that would reload the page.
+    // Capture phase so we beat other submit handlers that would reload the page.
     this.form.addEventListener('submit', this.onSubmit, true);
     this.querySelectorAll('[data-contact-confirm-close]').forEach((el) => {
       el.addEventListener('click', this.closeDialog);
@@ -56,7 +56,7 @@ class ContactFormAjax extends HTMLElement {
         });
     };
 
-    // Ensure CAPTCHA token fields are present, then AJAX — do not call form.submit().
+    // Wait for CAPTCHA token fields, then POST — never call form.submit() here.
     if (window.Shopify && window.Shopify.captcha && typeof window.Shopify.captcha.protect === 'function') {
       window.Shopify.captcha.protect(this.form, runFetch);
       return;
@@ -65,20 +65,51 @@ class ContactFormAjax extends HTMLElement {
     runFetch();
   }
 
-  async submitAjax() {
-    const formData = new FormData(this.form);
+  getActionUrl() {
     const action = this.form.getAttribute('action') || '/contact';
+    // Fragment identifiers must not be part of the request URL.
+    return action.split('#')[0];
+  }
+
+  /**
+   * Native contact forms post as application/x-www-form-urlencoded.
+   * fetch(FormData) sends multipart/form-data, which Shopify often rejects with 400.
+   */
+  buildUrlEncodedBody() {
+    const params = new URLSearchParams();
+    const formData = new FormData(this.form);
+
+    formData.forEach((value, key) => {
+      if (typeof value === 'string') {
+        params.append(key, value);
+      }
+    });
+
+    return params;
+  }
+
+  async submitAjax() {
+    const action = this.getActionUrl();
+    const body = this.buildUrlEncodedBody();
 
     const response = await fetch(action, {
       method: 'POST',
-      body: formData,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-      },
+      body,
+      credentials: 'same-origin',
+      // No custom headers — keeps this a "simple" request and matches a normal form POST.
     });
 
-    // Interactive challenge page required — let the browser submit normally.
+    // Interactive challenge / rate limit — fall back to a real browser submit.
     if (response.status === 429) {
+      this.allowNativeSubmit = true;
+      this.submitting = false;
+      this.setLoading(false);
+      HTMLFormElement.prototype.submit.call(this.form);
+      return;
+    }
+
+    // CAPTCHA / validation rejection — fall back so the customer isn't stuck.
+    if (response.status === 400) {
       this.allowNativeSubmit = true;
       this.submitting = false;
       this.setLoading(false);
@@ -90,24 +121,8 @@ class ContactFormAjax extends HTMLElement {
       throw new Error(`Contact form failed with status ${response.status}`);
     }
 
-    // Shopify redirects to ?contact_posted=true on success. That alone is enough.
-    // Do not scan page HTML for role="alert" — success pages can include unrelated alerts
-    // and Dawn's success banner uses form-status-list, which caused false failures.
-    const posted = (response.url || '').includes('contact_posted=true');
-    if (!posted && !response.ok) {
-      throw new Error('Contact form submission failed');
-    }
-
     this.form.reset();
     this.openDialog();
-
-    if (posted && window.history && window.history.replaceState) {
-      try {
-        window.history.replaceState({}, '', `${window.location.pathname}${window.location.hash || '#ContactForm'}`);
-      } catch (error) {
-        // Ignore history errors.
-      }
-    }
   }
 
   setLoading(isLoading) {
