@@ -42,18 +42,19 @@
 
 @media screen and (min-width: 750px) {
   .contact__button {
-    margin-top: 2rem;
+    margin-top: 2.4rem;
   }
 }
 
-/* Editorial form — matches Contact Us page tone */
+/* Editorial form — outlined fields + matching send button */
 .contact--editorial .contact__label {
   display: block;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
   font-size: 1.3rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   line-height: 1.4;
-  color: rgba(var(--color-foreground), 0.7);
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
 }
 
 .contact--editorial .contact__field.field {
@@ -74,27 +75,27 @@
 .contact--editorial .contact__input:focus-visible,
 .contact--editorial .contact__input:not(:placeholder-shown),
 .contact--editorial .contact__input:-webkit-autofill {
-  background: transparent;
-  border: 0;
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.25);
-  border-radius: 0;
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  border-radius: 0.4rem;
   box-shadow: none;
-  height: 4.2rem;
-  min-height: 4.2rem;
-  padding: 0.4rem 0 0.8rem;
+  height: 4.8rem;
+  min-height: 4.8rem;
+  padding: 1.2rem 1.4rem;
   font-size: 1.6rem;
   color: rgb(var(--color-foreground));
+  transition: border-color var(--duration-short) ease, box-shadow var(--duration-short) ease;
 }
 
 .contact--editorial .contact__input:hover {
-  border-bottom-color: rgba(var(--color-foreground), 0.45);
+  border-color: rgba(var(--color-foreground), 0.4);
 }
 
 .contact--editorial .contact__input:focus,
 .contact--editorial .contact__input:focus-visible {
-  border-bottom-color: rgb(var(--color-foreground));
+  border-color: rgb(var(--color-foreground));
   outline: none;
-  box-shadow: none;
+  box-shadow: 0 0 0 0.1rem rgb(var(--color-foreground));
 }
 
 .contact--editorial .contact__input--textarea,
@@ -103,8 +104,8 @@
 .contact--editorial .contact__input--textarea:focus-visible,
 .contact--editorial .contact__input--textarea:not(:placeholder-shown) {
   height: auto;
-  min-height: 12rem;
-  padding-top: 0.8rem;
+  min-height: 14rem;
+  padding-top: 1.4rem;
   resize: vertical;
   line-height: 1.6;
 }
@@ -115,15 +116,53 @@
 }
 
 .contact--editorial .contact__field-error {
-  margin-top: 0.6rem;
+  margin-top: 0.8rem;
 }
 
-.contact--editorial .contact__button .button {
-  min-width: 12rem;
+.contact--editorial .contact__submit,
+.contact--editorial .contact__submit:before,
+.contact--editorial .contact__submit:after {
+  border-radius: 0.4rem;
+}
+
+.contact--editorial .contact__submit {
+  position: relative;
+  min-width: 16rem;
+  min-height: 4.8rem;
+  padding: 0 2.8rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+  background-color: transparent;
+  border: 0.1rem solid rgb(var(--color-foreground));
+  box-shadow: none;
+  transition:
+    background-color var(--duration-short) ease,
+    color var(--duration-short) ease,
+    border-color var(--duration-short) ease;
+}
+
+.contact--editorial .contact__submit:before,
+.contact--editorial .contact__submit:after {
+  content: none;
+  display: none;
+  box-shadow: none;
+}
+
+.contact--editorial .contact__submit:hover {
+  color: rgb(var(--color-background));
+  background-color: rgb(var(--color-foreground));
+  border-color: rgb(var(--color-foreground));
+}
+
+.contact--editorial .contact__submit:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.35);
+  outline-offset: 0.3rem;
 }
 
 @media screen and (max-width: 749px) {
-  .contact--editorial .contact__button .button {
+  .contact--editorial .contact__submit {
     width: 100%;
   }
 }
