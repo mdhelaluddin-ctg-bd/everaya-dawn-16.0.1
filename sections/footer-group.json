@@ -41,7 +41,7 @@
             "link_2_label": "FAQs",
             "link_2_url": "/pages/faq",
             "link_3_label": "Jewelry Care Instructions",
-            "link_3_url": "/pages/jewelry-care",
+            "link_3_url": "shopify://pages/jewelry-care-instructions",
             "link_4_label": "Contact Us",
             "link_4_url": "/pages/contact",
             "link_5_label": "",
