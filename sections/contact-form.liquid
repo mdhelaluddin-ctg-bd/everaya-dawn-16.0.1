@@ -41,7 +41,7 @@
     <contact-form-ajax>
       {%- form 'contact', id: 'ContactForm', class: contact_form_class, data-shopify-captcha: 'true' -%}
         {%- if form.posted_successfully? -%}
-          <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+          <h2 class="form-status form-status-list form__message contact__server-success" tabindex="-1">
             {{- 'icon-success.svg' | inline_asset_content -}}
             {{ 'templates.contact.form.post_success' | t }}
           </h2>
