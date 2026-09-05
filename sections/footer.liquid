@@ -217,12 +217,14 @@
                       {%- endif -%}
                       {%- if block.settings.show_social_in_block and has_social_icons -%}
                         {%- liquid
-                          assign contact_social_class = 'footer__list-social footer__list-social--left'
-                          if block.settings.social_alignment == 'right'
-                            assign contact_social_class = 'footer__list-social footer__list-social--right'
+                          assign social_align = block.settings.social_alignment | default: 'left'
+                          if social_align != 'right'
+                            assign social_align = 'left'
                           endif
                         -%}
-                        {%- render 'social-icons', class: contact_social_class -%}
+                        <div class="footer-block__social footer-block__social--{{ social_align }}">
+                          {%- render 'social-icons', class: 'footer__list-social' -%}
+                        </div>
                       {%- endif -%}
                     </div>
                   {%- when 'brand_information' -%}
