@@ -17,7 +17,7 @@
         "footer_information": {
           "type": "link_column",
           "settings": {
-            "heading": "Information",
+            "heading": "<strong>Information</strong>",
             "link_1_label": "Our Story",
             "link_1_url": "/pages/our-story",
             "link_2_label": "FAQs",
@@ -35,7 +35,7 @@
         "footer_policies": {
           "type": "shop_policies",
           "settings": {
-            "heading": "Policies"
+            "heading": "<strong>Policies</strong>"
           }
         },
         "footer_contact": {
