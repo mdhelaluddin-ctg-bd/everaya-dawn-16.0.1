@@ -11,11 +11,10 @@
   "sections": {
     "image_banner_9PXHYb": {
       "type": "image-banner",
-      "disabled": true,
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/everaya-story-banner.png",
-        "image_mobile": "shopify://shop_images/everaya-story-banner-mobile.png",
+        "image": "shopify://shop_images/everaya-care-banner.png",
+        "image_mobile": "shopify://shop_images/everaya-care-banner-mobile.png",
         "image_overlay_opacity": 0,
         "image_height": "small",
         "image_behavior": "none",
