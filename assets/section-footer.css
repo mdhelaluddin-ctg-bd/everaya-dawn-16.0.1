@@ -165,9 +165,10 @@
 
 /* Contact column */
 .footer-block__contact {
-  color: rgba(var(--color-foreground), 0.75);
-  font-size: 1.4rem;
-  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.88);
+  font-size: 1.5rem;
+  line-height: 1.55;
+  font-weight: 400;
 }
 
 .footer-block__contact-line {
@@ -175,8 +176,9 @@
 }
 
 .footer-block__contact-line a {
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgba(var(--color-foreground), 0.88);
   text-decoration: none;
+  font-weight: 450;
 }
 
 .footer-block__contact-line a:hover {
@@ -187,7 +189,7 @@
 
 .footer-block__contact-address {
   margin-top: 1.6rem;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--color-foreground), 0.75);
 }
 
 .footer-block--contact .footer__list-social {
@@ -439,12 +441,15 @@
 
 .footer-block__details-content .list-menu__item--link,
 .copyright__content a {
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgba(var(--color-foreground), 0.88);
+  font-weight: 450;
+  letter-spacing: 0.01em;
 }
 
 .footer-block__details-content .list-menu__item--active {
-  transition: text-decoration-thickness var(--duration-short) ease;
+  transition: text-decoration-thickness var(--duration-short) ease, color var(--duration-short) ease;
   color: rgb(var(--color-foreground));
+  font-weight: 500;
 }
 
 @media screen and (min-width: 750px) {
@@ -452,11 +457,12 @@
   .copyright__content a:hover {
     color: rgb(var(--color-foreground));
     text-decoration: underline;
-    text-underline-offset: 0.3rem;
+    text-underline-offset: 0.35rem;
+    text-decoration-thickness: 0.1rem;
   }
 
   .footer-block__details-content .list-menu__item--active:hover {
-    text-decoration-thickness: 0.2rem;
+    text-decoration-thickness: 0.15rem;
   }
 }
 
@@ -470,7 +476,8 @@
 @media screen and (min-width: 750px) {
   .footer-block__details-content .list-menu__item--link {
     display: inline-block;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
   }
 
   .footer-block__details-content > :first-child .list-menu__item--link {

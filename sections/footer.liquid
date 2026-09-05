@@ -64,19 +64,17 @@
       <div class="footer__content-top page-width">
         {%- if section.blocks.size > 0 -%}
           {%- liquid
-            assign footer_grid_class = 'grid--4-col-tablet'
-            if section.blocks.size == 9
-              assign footer_grid_class = 'grid--3-col-tablet'
-            elsif section.blocks.size > 6
-              assign footer_grid_class = 'grid--4-col-desktop'
-            elsif section.blocks.size > 4
-              assign footer_grid_class = 'grid--3-col-tablet'
-            elsif section.blocks.size >= 3 and section.blocks.size <= 4
-              assign footer_grid_class = 'grid--4-col-desktop'
-            endif
+            case section.settings.columns_desktop
+              when '2'
+                assign footer_grid_class = 'grid--2-col-tablet grid--2-col-desktop'
+              when '4'
+                assign footer_grid_class = 'grid--4-col-tablet grid--4-col-desktop'
+              else
+                assign footer_grid_class = 'grid--3-col-tablet grid--3-col-desktop'
+            endcase
           -%}
           <div
-            class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            class="footer__blocks-wrapper grid grid--1-col grid--2-col {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
             {% if settings.animations_reveal_on_scroll %}
               data-cascade
             {% endif %}
@@ -753,6 +751,26 @@
     {
       "type": "header",
       "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Desktop columns",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 columns"
+        },
+        {
+          "value": "3",
+          "label": "3 columns"
+        },
+        {
+          "value": "4",
+          "label": "4 columns"
+        }
+      ],
+      "default": "3"
     },
     {
       "type": "checkbox",
