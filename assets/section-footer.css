@@ -153,12 +153,114 @@
   margin-bottom: 2rem;
   margin-top: 0;
   font-size: calc(var(--font-heading-scale) * 1.6rem);
+  letter-spacing: var(--footer-heading-letter-spacing, 0);
+  text-transform: var(--footer-heading-text-transform, none);
 }
 
 @media screen and (min-width: 990px) {
   .footer-block__heading {
     font-size: calc(var(--font-heading-scale) * 1.8rem);
   }
+}
+
+/* Contact column */
+.footer-block__contact {
+  color: rgba(var(--color-foreground), 0.75);
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.footer-block__contact-line {
+  margin: 0 0 0.8rem;
+}
+
+.footer-block__contact-line a {
+  color: rgba(var(--color-foreground), 0.75);
+  text-decoration: none;
+}
+
+.footer-block__contact-line a:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.footer-block__contact-address {
+  margin-top: 1.6rem;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.footer-block--contact .footer__list-social {
+  margin-top: 1.6rem;
+}
+
+/* Newsletter left / social right */
+.footer--newsletter-split .footer-block--newsletter {
+  width: 100%;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 4rem;
+  gap: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .footer--newsletter-split .footer-block--newsletter {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .footer--newsletter-split .footer-block__newsletter {
+    text-align: left;
+    flex: 1 1 auto;
+    margin-right: auto;
+  }
+
+  .footer--newsletter-split .footer-block__newsletter .footer__newsletter {
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .footer--newsletter-split .footer__list-social.list-social {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .footer--newsletter-split .footer-block--newsletter {
+    align-items: stretch;
+  }
+
+  .footer--newsletter-split .footer__list-social.list-social {
+    justify-content: center;
+  }
+}
+
+/* Centered bottom bar: payments then copyright */
+.footer--bottom-center .footer__content-bottom-wrapper--stack {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer--bottom-center .footer__payment {
+  margin-top: 0;
+}
+
+.footer--bottom-center .footer__copyright {
+  margin-top: 0;
+  text-align: center;
+}
+
+.footer--bottom-center .list-payment {
+  justify-content: center;
+}
+
+.footer__localization--under-copyright {
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0;
 }
 
 .footer__list-social:empty,

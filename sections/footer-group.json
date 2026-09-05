@@ -13,18 +13,59 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "footer_information": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Information"
+          }
+        },
+        "footer_help": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Help"
+          }
+        },
+        "footer_policies": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Policies"
+          }
+        },
+        "footer_contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Connect with us",
+            "phone": "",
+            "email": "",
+            "hours": "",
+            "address": "",
+            "show_social_in_block": false
+          }
+        }
+      },
+      "block_order": [
+        "footer_information",
+        "footer_help",
+        "footer_policies",
+        "footer_contact"
+      ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
+        "heading_uppercase": true,
+        "heading_letter_spacing": 2,
+        "newsletter_layout": "split",
+        "bottom_alignment": "center",
         "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
+        "newsletter_heading": "Become a VIP",
+        "enable_follow_on_shop": false,
         "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,
-        "show_policy": true,
+        "show_policy": false,
         "margin_top": 0,
-        "padding_top": 36,
+        "padding_top": 48,
         "padding_bottom": 36
       }
     }
