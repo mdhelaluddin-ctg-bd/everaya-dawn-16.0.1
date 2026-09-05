@@ -1363,31 +1363,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Layout for Privacy, Refund, Shipping, Terms, and other Shopify written policies. Content is edited in Settings → Policies."
-      },
-      {
-        "type": "select",
-        "id": "policy_content_width",
-        "label": "Content width",
-        "options": [
-          {
-            "value": "narrow",
-            "label": "Narrow"
-          },
-          {
-            "value": "normal",
-            "label": "Normal"
-          },
-          {
-            "value": "wide",
-            "label": "Wide"
-          },
-          {
-            "value": "full",
-            "label": "Full width"
-          }
-        ],
-        "default": "normal"
+        "content": "Uses the same content width as Theme settings → Layout. Content is edited in Settings → Policies. Title and body are left aligned."
       },
       {
         "type": "range",
@@ -1411,16 +1387,6 @@
       },
       {
         "type": "range",
-        "id": "policy_padding_horizontal",
-        "min": 0,
-        "max": 80,
-        "step": 4,
-        "unit": "px",
-        "label": "Horizontal padding",
-        "default": 20
-      },
-      {
-        "type": "range",
         "id": "policy_margin_top",
         "min": 0,
         "max": 80,
@@ -1438,22 +1404,6 @@
         "unit": "px",
         "label": "Margin bottom",
         "default": 0
-      },
-      {
-        "type": "select",
-        "id": "policy_text_align",
-        "label": "Text alignment",
-        "options": [
-          {
-            "value": "left",
-            "label": "Left"
-          },
-          {
-            "value": "center",
-            "label": "Center"
-          }
-        ],
-        "default": "left"
       }
     ]
   },
