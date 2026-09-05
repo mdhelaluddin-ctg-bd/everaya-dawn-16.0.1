@@ -5,6 +5,7 @@ class ContactFormAjax extends HTMLElement {
     this.submitButton = this.querySelector('[type="submit"]');
     this.spinner = this.querySelector('.loading__spinner');
     this.errorEl = this.querySelector('.contact__ajax-error');
+    this.submitting = false;
     this.allowNativeSubmit = false;
 
     if (!this.form || !this.dialog || !this.submitButton) return;
@@ -13,7 +14,8 @@ class ContactFormAjax extends HTMLElement {
     this.closeDialog = this.closeDialog.bind(this);
     this.onDialogClosed = this.onDialogClosed.bind(this);
 
-    this.form.addEventListener('submit', this.onSubmit);
+    // Capture phase so we beat hCaptcha / other submit handlers that would reload the page.
+    this.form.addEventListener('submit', this.onSubmit, true);
     this.querySelectorAll('[data-contact-confirm-close]').forEach((el) => {
       el.addEventListener('click', this.closeDialog);
     });
@@ -21,7 +23,7 @@ class ContactFormAjax extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (this.form) this.form.removeEventListener('submit', this.onSubmit);
+    if (this.form) this.form.removeEventListener('submit', this.onSubmit, true);
   }
 
   onSubmit(event) {
@@ -31,27 +33,36 @@ class ContactFormAjax extends HTMLElement {
     }
 
     event.preventDefault();
+    event.stopImmediatePropagation();
+
+    if (this.submitting) return;
 
     if (typeof this.form.reportValidity === 'function' && !this.form.reportValidity()) {
       return;
     }
 
+    this.submitting = true;
     this.clearError();
     this.setLoading(true);
 
-    const submitRequest = () => {
-      this.submitAjax().catch(() => {
-        this.setLoading(false);
-        this.showError('Something went wrong sending your message. Please try again in a moment.');
-      });
+    const runFetch = () => {
+      this.submitAjax()
+        .catch(() => {
+          this.showError('Something went wrong sending your message. Please try again in a moment.');
+        })
+        .finally(() => {
+          this.submitting = false;
+          this.setLoading(false);
+        });
     };
 
+    // Ensure CAPTCHA token fields are present, then AJAX — do not call form.submit().
     if (window.Shopify && window.Shopify.captcha && typeof window.Shopify.captcha.protect === 'function') {
-      window.Shopify.captcha.protect(this.form, submitRequest);
+      window.Shopify.captcha.protect(this.form, runFetch);
       return;
     }
 
-    submitRequest();
+    runFetch();
   }
 
   async submitAjax() {
@@ -66,10 +77,11 @@ class ContactFormAjax extends HTMLElement {
       },
     });
 
-    // Rate-limit / interactive CAPTCHA challenge — use a normal browser submit.
+    // Interactive challenge page required — let the browser submit normally.
     if (response.status === 429) {
-      this.setLoading(false);
       this.allowNativeSubmit = true;
+      this.submitting = false;
+      this.setLoading(false);
       HTMLFormElement.prototype.submit.call(this.form);
       return;
     }
@@ -78,26 +90,24 @@ class ContactFormAjax extends HTMLElement {
       throw new Error(`Contact form failed with status ${response.status}`);
     }
 
-    const responseUrl = response.url || '';
-    let responseText = '';
-    try {
-      responseText = await response.text();
-    } catch (error) {
-      responseText = '';
-    }
-
-    const redirectedWithSuccess = responseUrl.includes('contact_posted=true');
-    const htmlHasFormError =
-      responseText.includes('role="alert"') &&
-      (responseText.includes('ContactForm-email-error') || responseText.includes('form-status-list'));
-
-    if (!redirectedWithSuccess && htmlHasFormError) {
-      throw new Error('Contact form validation failed');
+    // Shopify redirects to ?contact_posted=true on success. That alone is enough.
+    // Do not scan page HTML for role="alert" — success pages can include unrelated alerts
+    // and Dawn's success banner uses form-status-list, which caused false failures.
+    const posted = (response.url || '').includes('contact_posted=true');
+    if (!posted && !response.ok) {
+      throw new Error('Contact form submission failed');
     }
 
     this.form.reset();
-    this.setLoading(false);
     this.openDialog();
+
+    if (posted && window.history && window.history.replaceState) {
+      try {
+        window.history.replaceState({}, '', `${window.location.pathname}${window.location.hash || '#ContactForm'}`);
+      } catch (error) {
+        // Ignore history errors.
+      }
+    }
   }
 
   setLoading(isLoading) {
