@@ -46,7 +46,8 @@
             "email": "support@everaya.com",
             "hours": "Monday - Friday (9AM to 5PM EST)",
             "address": "Orlando, Florida, United States",
-            "show_social_in_block": true
+            "show_social_in_block": true,
+            "social_alignment": "left"
           }
         }
       },

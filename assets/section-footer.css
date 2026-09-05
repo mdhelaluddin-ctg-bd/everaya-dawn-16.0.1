@@ -194,12 +194,26 @@
 
 .footer-block--contact .footer__list-social {
   margin-top: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer-block--contact .footer__list-social--left {
   justify-content: flex-start;
 }
 
-.footer-block--contact .footer__list-social .list-social__link {
+.footer-block--contact .footer__list-social--right {
+  justify-content: flex-end;
+}
+
+.footer-block--contact .footer__list-social--left .list-social__link {
   padding-left: 0;
   padding-right: 1.2rem;
+}
+
+.footer-block--contact .footer__list-social--right .list-social__link {
+  padding-right: 0;
+  padding-left: 1.2rem;
 }
 
 /* Newsletter left / social right */

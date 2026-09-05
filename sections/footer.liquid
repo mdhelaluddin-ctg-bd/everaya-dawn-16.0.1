@@ -216,7 +216,13 @@
                         </div>
                       {%- endif -%}
                       {%- if block.settings.show_social_in_block and has_social_icons -%}
-                        {%- render 'social-icons', class: 'footer__list-social' -%}
+                        {%- liquid
+                          assign contact_social_class = 'footer__list-social footer__list-social--left'
+                          if block.settings.social_alignment == 'right'
+                            assign contact_social_class = 'footer__list-social footer__list-social--right'
+                          endif
+                        -%}
+                        {%- render 'social-icons', class: contact_social_class -%}
                       {%- endif -%}
                     </div>
                   {%- when 'brand_information' -%}
@@ -644,6 +650,22 @@
           "default": false,
           "label": "Show social icons in this block",
           "info": "Usually leave off when social icons are shown in the newsletter row."
+        },
+        {
+          "type": "select",
+          "id": "social_alignment",
+          "label": "Social icons alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
         }
       ]
     },
