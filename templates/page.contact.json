@@ -13,8 +13,8 @@
       "type": "image-banner",
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/everaya-contact-banner.png",
-        "image_mobile": "shopify://shop_images/everaya-contact-banner-mobile.png",
+        "image": "shopify://shop_images/everaya-contact-banner_1.png",
+        "image_mobile": "shopify://shop_images/everaya-contact-banner-mobile_1.png",
         "image_overlay_opacity": 0,
         "image_height": "small",
         "image_behavior": "none",
