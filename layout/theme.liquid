@@ -281,6 +281,39 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
+    {%- liquid
+      case settings.policy_content_width
+        when 'narrow'
+          assign policy_max_width = '66rem'
+        when 'wide'
+          assign policy_max_width = '120rem'
+        when 'full'
+          assign policy_max_width = '100%'
+        else
+          assign policy_max_width = '90rem'
+      endcase
+    -%}
+    {% style %}
+      .shopify-policy__container {
+        max-width: {{ policy_max_width }};
+        width: 100%;
+        margin-top: {{ settings.policy_margin_top | default: 0 }}px;
+        margin-bottom: {{ settings.policy_margin_bottom | default: 0 }}px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: {{ settings.policy_padding_top | default: 36 }}px;
+        padding-bottom: {{ settings.policy_padding_bottom | default: 36 }}px;
+        padding-left: {{ settings.policy_padding_horizontal | default: 20 }}px;
+        padding-right: {{ settings.policy_padding_horizontal | default: 20 }}px;
+        text-align: {{ settings.policy_text_align | default: 'left' }};
+        box-sizing: border-box;
+      }
+
+      .shopify-policy__title {
+        text-align: {{ settings.policy_text_align | default: 'left' }};
+      }
+    {% endstyle %}
+
     {%- if settings.cart_type == 'drawer' -%}
       {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
       {{ 'component-cart.css' | asset_url | stylesheet_tag }}
