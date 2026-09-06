@@ -33,6 +33,39 @@ slideshow-component .slideshow.banner {
   }
 }
 
+/* Image fit modes.
+   The doubled .slideshow prefix is needed to outrank base.css
+   `.media > *:not(.zoom):not(.deferred-media__poster-button)`, which forces
+   position: absolute and height: 100% on the image. */
+
+/* Show full image: slide height follows the first image's ratio, set inline
+   by the section. Other slides are letterboxed rather than cropped. */
+.slideshow.slideshow--fit-full {
+  min-height: 0;
+}
+
+.slideshow.slideshow--fit-full .banner__media > img {
+  object-fit: contain;
+}
+
+/* Fit to width: image spans the full slide width at its natural proportions,
+   centred vertically. The fixed slide height crops it or pads it. */
+.slideshow.slideshow--fit-width .banner__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(var(--color-background));
+}
+
+.slideshow.slideshow--fit-width .banner__media > img {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+}
+
 .slideshow__text.banner__box {
   display: flex;
   flex-direction: column;

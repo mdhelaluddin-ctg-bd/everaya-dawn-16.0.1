@@ -25,6 +25,14 @@
   {%- endstyle -%}
 {%- endif -%}
 
+{%- if section.settings.image_fit == 'full' and section.blocks.first.settings.image != blank -%}
+  {%- style -%}
+    #Slider-{{ section.id }}.slideshow--fit-full {
+      aspect-ratio: {{ section.blocks.first.settings.image.aspect_ratio }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <slideshow-component
   class="slider-mobile-gutter{% if section.settings.layout == 'grid' %} page-width{% endif %}{% if section.settings.show_text_below %} mobile-text-below{% endif %}"
   role="region"
@@ -98,7 +106,7 @@
   {%- endif -%}
 
   <div
-    class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+    class="slideshow banner banner--{{ section.settings.slide_height }} slideshow--fit-{{ section.settings.image_fit | default: 'crop' }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
     id="Slider-{{ section.id }}"
     aria-live="polite"
     aria-atomic="true"
@@ -309,6 +317,26 @@
       ],
       "default": "medium",
       "label": "t:sections.slideshow.settings.slide_height.label"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        {
+          "value": "crop",
+          "label": "Crop to fill"
+        },
+        {
+          "value": "full",
+          "label": "Show full image (adjusts slide height)"
+        },
+        {
+          "value": "fit_width",
+          "label": "Fit to width (may crop or pad top and bottom)"
+        }
+      ],
+      "default": "crop"
     },
     {
       "type": "select",
