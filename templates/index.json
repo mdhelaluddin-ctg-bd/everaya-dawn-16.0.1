@@ -15,7 +15,8 @@
         "slide_GHrWVY": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Artboard_3.jpg",
+            "image": "shopify://shop_images/Artboard_4.jpg",
+            "image_mobile": "shopify://shop_images/Artboard_6.jpg",
             "image_overlay_opacity": 0,
             "heading": "",
             "heading_size": "h1",
@@ -62,6 +63,7 @@
         "auto_rotate": true,
         "change_slides_speed": 5,
         "image_behavior": "none",
+        "enable_on_mobile": true,
         "show_text_below": true,
         "accessibility_info": "Slideshow about our brand"
       }
