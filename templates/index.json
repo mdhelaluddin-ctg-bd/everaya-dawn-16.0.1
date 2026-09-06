@@ -34,7 +34,8 @@
         "slide_enWR7H": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Artboard_1.jpg",
+            "image": "shopify://shop_images/Artboard_5.jpg",
+            "image_mobile": "shopify://shop_images/Artboard_7.jpg",
             "image_overlay_opacity": 0,
             "heading": "",
             "heading_size": "h1",
