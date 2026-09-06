@@ -179,9 +179,37 @@ details[open].menu-opening > .menu-drawer__submenu {
   position: relative;
 }
 
+.header--has-account .menu-drawer__utility-links,
 .header--has-localizations .menu-drawer__utility-links,
 .header--has-social .menu-drawer__utility-links {
   padding: 2rem 3rem;
+}
+
+.menu-drawer__account {
+  margin-bottom: 1.2rem;
+}
+
+.menu-drawer__account-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+}
+
+.menu-drawer__account-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-drawer__account-login .svg-wrapper {
+  width: 2rem;
+  height: 2rem;
+}
+
+.menu-drawer__account-label {
+  font-size: 1.4rem;
+  line-height: 1.2;
 }
 
 .menu-drawer .list-social {

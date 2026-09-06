@@ -140,6 +140,21 @@
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">
+            {%- if shop.customer_accounts_enabled -%}
+              <div class="menu-drawer__account large-up-hide">
+                <shopify-account
+                  menu="{{ settings.customer_account_menu | default: 'customer-account-main-menu' }}"
+                  class="menu-drawer__account-link link focus-inset"
+                >
+                  <span slot="signed-out-avatar" class="menu-drawer__account-login">
+                    <span class="svg-wrapper">
+                      {{- 'icon-account.svg' | inline_asset_content -}}
+                    </span>
+                    <span class="menu-drawer__account-label">{{ 'customer.log_in' | t }}</span>
+                  </span>
+                </shopify-account>
+              </div>
+            {%- endif -%}
             {%- if show_country_selector or show_language_selector -%}
               <div class="menu-drawer__localization header-localization">
                 {%- if show_country_selector -%}

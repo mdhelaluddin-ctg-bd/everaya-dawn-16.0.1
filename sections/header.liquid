@@ -75,7 +75,8 @@
     }
   }
 
-  shopify-account.header__icon {
+  shopify-account.header__icon,
+  .menu-drawer__account shopify-account {
     --shopify-account-font-heading: var(--font-heading-family);
     --shopify-account-font-heading-weight: var(--font-heading-weight);
     --shopify-account-font-body: var(--font-body-family);
@@ -97,6 +98,12 @@
     justify-content: center;
     min-width: 4.4rem;
     height: 4.4rem;
+  }
+
+  .menu-drawer__account shopify-account:not(:defined) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 4.4rem;
   }
 </style>
 
@@ -301,7 +308,7 @@
       {%- if shop.customer_accounts_enabled -%}
         <shopify-account
           menu="{{ settings.customer_account_menu | default: 'customer-account-main-menu' }}"
-          class="header__icon header__icon--account link focus-inset"
+          class="header__icon header__icon--account link focus-inset small-hide medium-hide"
         >
           <span slot="signed-out-avatar" class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
           <span slot="signed-out-avatar" class="visually-hidden">{{ 'customer.log_in' | t }}</span>
