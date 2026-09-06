@@ -2,7 +2,20 @@
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 
-{%- if section.settings.slide_height == 'adapt_image' and section.blocks.first.settings.image != blank -%}
+{%- liquid
+  comment
+    Both 'Adapt to first image' height and the 'Show full image' fit size the slide
+    from the first image's ratio. Targeting .media::before and .banner__content::before
+    rather than the slider itself keeps the text block intact when it sits below the
+    image on mobile.
+  endcomment
+  assign adapt_to_image = false
+  if section.settings.slide_height == 'adapt_image' or section.settings.image_fit == 'full'
+    assign adapt_to_image = true
+  endif
+-%}
+
+{%- if adapt_to_image and section.blocks.first.settings.image != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
       #Slider-{{ section.id }}::before,
@@ -21,14 +34,6 @@
         content: '';
         display: block;
       }
-    }
-  {%- endstyle -%}
-{%- endif -%}
-
-{%- if section.settings.image_fit == 'full' and section.blocks.first.settings.image != blank -%}
-  {%- style -%}
-    #Slider-{{ section.id }}.slideshow--fit-full {
-      aspect-ratio: {{ section.blocks.first.settings.image.aspect_ratio }};
     }
   {%- endstyle -%}
 {%- endif -%}
@@ -332,7 +337,7 @@
           "label": "Show full image (adjusts slide height)"
         },
         {
-          "value": "fit_width",
+          "value": "width",
           "label": "Fit to width (may crop or pad top and bottom)"
         }
       ],

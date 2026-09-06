@@ -48,6 +48,12 @@ slideshow-component .slideshow.banner {
   object-fit: contain;
 }
 
+/* Small/Medium/Large pin the media to a fixed height on mobile. Release it so the
+   ratio set by the section wins and the whole image is still visible. */
+.slideshow.slideshow--fit-full.banner .banner__media {
+  height: auto;
+}
+
 /* Fit to width: image spans the full slide width at its natural proportions,
    centred vertically. The fixed slide height crops it or pads it. */
 .slideshow.slideshow--fit-width .banner__media {
