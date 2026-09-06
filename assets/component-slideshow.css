@@ -4,6 +4,12 @@ slideshow-component {
   flex-direction: column;
 }
 
+@media screen and (max-width: 749px) {
+  slideshow-component.slideshow--hide-mobile {
+    display: none;
+  }
+}
+
 slideshow-component .slideshow.banner {
   flex-direction: row;
   flex-wrap: nowrap;

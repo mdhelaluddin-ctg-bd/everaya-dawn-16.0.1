@@ -53,9 +53,6 @@
         "slide_GHrWVY",
         "slide_enWR7H"
       ],
-      "custom_css": [
-        "@media screen and (max-width: 749px) {slideshow-component {display: none; }}"
-      ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
         "layout": "full_bleed",
