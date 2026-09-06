@@ -68,65 +68,6 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
-    "slideshow_4Yw7KP": {
-      "type": "slideshow",
-      "blocks": {
-        "slide_xpRAP4": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Artboard_2_copy.jpg",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
-          }
-        },
-        "slide_fCFyAz": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Artboard_2.jpg",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
-          }
-        }
-      },
-      "block_order": [
-        "slide_xpRAP4",
-        "slide_fCFyAz"
-      ],
-      "custom_css": [
-        "@media screen and (min-width: 750px) {slideshow-component {display: none; }}"
-      ],
-      "name": "t:sections.slideshow.presets.name",
-      "settings": {
-        "layout": "full_bleed",
-        "slide_height": "adapt_image",
-        "slider_visual": "dots",
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "image_behavior": "none",
-        "show_text_below": true,
-        "accessibility_info": "Slideshow about our brand"
-      }
-    },
     "featured_collection_T8yecb": {
       "type": "featured-collection",
       "name": "Trending this week 🔥",
@@ -217,7 +158,6 @@
   },
   "order": [
     "slideshow_fQN3jV",
-    "slideshow_4Yw7KP",
     "featured_collection_T8yecb",
     "featured_collection",
     "featured_collection_jMrLUe"
