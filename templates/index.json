@@ -60,7 +60,7 @@
       "settings": {
         "layout": "full_bleed",
         "slide_height": "large",
-        "image_fit": "width",
+        "image_fit": "full",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 5,
