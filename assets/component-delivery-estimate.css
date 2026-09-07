@@ -141,6 +141,14 @@
     width: calc(var(--delivery-icon-size, 6rem) * 0.8);
   }
 
+  .delivery-estimate__heading {
+    font-size: calc(var(--delivery-heading-size, 1.45rem) * 0.75);
+  }
+
+  .delivery-estimate__dates {
+    font-size: calc(var(--delivery-dates-size, 1.3rem) * 0.8);
+  }
+
   .expedited-shipping {
     padding: 1rem 1.2rem;
   }
