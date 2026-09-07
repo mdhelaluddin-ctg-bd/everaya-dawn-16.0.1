@@ -2660,21 +2660,18 @@ menu-drawer + .header__search {
   }
 
   .header--has-account.header--has-menu:not(.header--mobile-left):not(.header--has-app) {
-    grid-template-areas: 'left-icons search heading icons';
-    grid-template-columns: auto auto 1fr auto;
+    grid-template-areas: 'left-icons heading icons';
+    grid-template-columns: 1fr 2fr 1fr;
   }
 
   .header--has-account.header--has-menu:not(.header--mobile-left):not(.header--has-app) > .header__search {
-    display: inline-flex;
-    grid-area: search;
-    justify-self: start;
-    margin-left: 0;
+    display: none;
   }
 
   .header--has-account.header--has-menu:not(.header--mobile-left):not(.header--has-app)
     .header__icons
     > .header__search {
-    display: none;
+    display: inline-flex;
   }
 }
 
