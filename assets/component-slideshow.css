@@ -49,8 +49,6 @@ slideshow-component .slideshow.banner {
 .slideshow.slideshow--fit-full {
   min-height: 0 !important;
   height: auto;
-  overflow-y: visible;
-  align-items: flex-start;
 }
 
 .slideshow.slideshow--fit-full::before,
@@ -86,9 +84,26 @@ slideshow-component .slideshow.banner {
   object-fit: fill;
 }
 
+/* Overlay slide text so the empty banner box cannot add height after the image. */
+.slideshow.slideshow--fit-full .slideshow__text-wrapper {
+  position: absolute;
+  inset: 0;
+  height: auto;
+}
+
 @media screen and (max-width: 749px) {
   .slideshow.slideshow--fit-full:not(.banner--mobile-bottom) .banner__content {
     min-height: 0 !important;
+  }
+
+  .slideshow.slideshow--fit-full.banner--mobile-bottom .slideshow__text-wrapper {
+    position: relative;
+    inset: auto;
+  }
+
+  .slideshow.slideshow--fit-full.banner--mobile-bottom
+    .slideshow__text-wrapper:not(:has(.banner__heading, .banner__text, .banner__buttons)) {
+    display: none;
   }
 }
 
