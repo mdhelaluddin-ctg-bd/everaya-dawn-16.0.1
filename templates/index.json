@@ -102,7 +102,7 @@
       "type": "featured-collection",
       "name": "Featured Products 💎",
       "settings": {
-        "collection": "all",
+        "collection": "featured-products-💎",
         "products_to_show": 8,
         "title": "Featured Products 💎",
         "heading_size": "h1",
