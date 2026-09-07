@@ -44,31 +44,52 @@ slideshow-component .slideshow.banner {
    `.media > *:not(.zoom):not(.deferred-media__poster-button)`, which forces
    position: absolute and height: 100% on the image. */
 
-/* Show full image: slide height follows the first image's ratio, set inline
-   by the section. Other slides are letterboxed rather than cropped. */
+/* Show full image: the visible image’s natural height drives the slide.
+   Do not use Small/Medium/Large fixed heights or the ::before ratio spacer. */
 .slideshow.slideshow--fit-full {
-  min-height: 0;
+  min-height: 0 !important;
+  height: auto;
+  overflow-y: visible;
+  align-items: flex-start;
+}
+
+.slideshow.slideshow--fit-full::before,
+.slideshow.slideshow--fit-full .media::before,
+.slideshow.slideshow--fit-full .banner__content::before {
+  display: none !important;
+  content: none !important;
+  padding: 0 !important;
+}
+
+.slideshow.slideshow--fit-full .banner__media,
+.slideshow.slideshow--fit-full.banner--mobile-bottom .banner__media,
+.slideshow.slideshow--fit-full.banner--small.banner--mobile-bottom .banner__media,
+.slideshow.slideshow--fit-full.banner--medium.banner--mobile-bottom .banner__media,
+.slideshow.slideshow--fit-full.banner--large.banner--mobile-bottom .banner__media,
+.slideshow.slideshow--fit-full.banner--small:not(.banner--mobile-bottom) .banner__media,
+.slideshow.slideshow--fit-full.banner--medium:not(.banner--mobile-bottom) .banner__media,
+.slideshow.slideshow--fit-full.banner--large:not(.banner--mobile-bottom) .banner__media {
+  position: relative !important;
+  top: auto;
+  left: auto;
+  width: 100%;
+  height: auto !important;
 }
 
 .slideshow.slideshow--fit-full .banner__media > img {
-  object-fit: contain;
+  position: relative !important;
+  top: auto;
+  left: auto;
+  width: 100%;
+  height: auto !important;
+  max-width: 100%;
+  object-fit: fill;
 }
 
-/* Small/Medium/Large pin media to a fixed height on mobile. Outrank those
-   rules so the ratio from .media::before wins and the whole image shows. */
 @media screen and (max-width: 749px) {
-  .slideshow.slideshow--fit-full.banner--small.banner--mobile-bottom .banner__media,
-  .slideshow.slideshow--fit-full.banner--medium.banner--mobile-bottom .banner__media,
-  .slideshow.slideshow--fit-full.banner--large.banner--mobile-bottom .banner__media,
-  .slideshow.slideshow--fit-full.banner--small:not(.banner--mobile-bottom) .banner__media,
-  .slideshow.slideshow--fit-full.banner--medium:not(.banner--mobile-bottom) .banner__media,
-  .slideshow.slideshow--fit-full.banner--large:not(.banner--mobile-bottom) .banner__media {
-    height: auto;
+  .slideshow.slideshow--fit-full:not(.banner--mobile-bottom) .banner__content {
+    min-height: 0 !important;
   }
-}
-
-.slideshow.slideshow--fit-full.banner .banner__media {
-  height: auto;
 }
 
 /* Fit to width: image spans the full slide width at its natural proportions,

@@ -4,13 +4,13 @@
 
 {%- liquid
   comment
-    Both 'Adapt to first image' height and the 'Show full image' fit size the slide
-    from the first image's ratio. Targeting .media::before and .banner__content::before
-    rather than the slider itself keeps the text block intact when it sits below the
-    image on mobile.
+    Native 'Adapt to first image' height still uses the ::before padding-bottom
+    ratio trick. 'Show full image' sizes from the image itself in CSS instead,
+    so mobile/desktop art can drive height without the fixed Small/Medium/Large
+    media heights.
   endcomment
   assign adapt_to_image = false
-  if section.settings.slide_height == 'adapt_image' or section.settings.image_fit == 'full'
+  if section.settings.slide_height == 'adapt_image' and section.settings.image_fit != 'full'
     assign adapt_to_image = true
   endif
 
