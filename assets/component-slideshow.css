@@ -54,8 +54,19 @@ slideshow-component .slideshow.banner {
   object-fit: contain;
 }
 
-/* Small/Medium/Large pin the media to a fixed height on mobile. Release it so the
-   ratio set by the section wins and the whole image is still visible. */
+/* Small/Medium/Large pin media to a fixed height on mobile. Outrank those
+   rules so the ratio from .media::before wins and the whole image shows. */
+@media screen and (max-width: 749px) {
+  .slideshow.slideshow--fit-full.banner--small.banner--mobile-bottom .banner__media,
+  .slideshow.slideshow--fit-full.banner--medium.banner--mobile-bottom .banner__media,
+  .slideshow.slideshow--fit-full.banner--large.banner--mobile-bottom .banner__media,
+  .slideshow.slideshow--fit-full.banner--small:not(.banner--mobile-bottom) .banner__media,
+  .slideshow.slideshow--fit-full.banner--medium:not(.banner--mobile-bottom) .banner__media,
+  .slideshow.slideshow--fit-full.banner--large:not(.banner--mobile-bottom) .banner__media {
+    height: auto;
+  }
+}
+
 .slideshow.slideshow--fit-full.banner .banner__media {
   height: auto;
 }
